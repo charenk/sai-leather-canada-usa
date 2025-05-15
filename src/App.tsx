@@ -10,6 +10,7 @@ import Products from "./pages/Products";
 import Services from "./pages/Services";
 import ClientelePage from "./pages/ClientelePage";
 import Contact from "./pages/Contact";
+import GetQuote from "./pages/GetQuote";
 import NotFound from "./pages/NotFound";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
@@ -30,6 +31,7 @@ const App = () => (
           <Route path="/services" element={<Services />} />
           <Route path="/clientele" element={<ClientelePage />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/get-quote" element={<GetQuote />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

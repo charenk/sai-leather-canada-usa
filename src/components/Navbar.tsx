@@ -63,7 +63,9 @@ const Navbar = () => {
               {link.name}
             </NavLink>
           ))}
-          <Button className="ml-4 bg-sai-red hover:bg-sai-red/90">Get Quote</Button>
+          <NavLink to="/get-quote">
+            <Button className="ml-4 bg-sai-red hover:bg-sai-red/90">Get Quote</Button>
+          </NavLink>
         </nav>
 
         {/* Mobile Menu Button */}
@@ -96,7 +98,9 @@ const Navbar = () => {
                 {link.name}
               </NavLink>
             ))}
-            <Button className="bg-sai-red hover:bg-sai-red/90 mt-2">Get Quote</Button>
+            <NavLink to="/get-quote" onClick={() => setIsMenuOpen(false)}>
+              <Button className="bg-sai-red hover:bg-sai-red/90 mt-2 w-full">Get Quote</Button>
+            </NavLink>
           </div>
         </nav>
       )}

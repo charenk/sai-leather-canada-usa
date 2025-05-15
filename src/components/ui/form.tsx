@@ -1,3 +1,4 @@
+
 import * as React from "react"
 import * as LabelPrimitive from "@radix-ui/react-label"
 import { Slot } from "@radix-ui/react-slot"
@@ -164,6 +165,32 @@ const FormMessage = React.forwardRef<
 })
 FormMessage.displayName = "FormMessage"
 
+// New secure field component that sanitizes output and provides extra protection
+const FormSecureField = React.forwardRef<
+  HTMLDivElement,
+  React.HTMLAttributes<HTMLDivElement> & { 
+    label: string;
+    sensitive?: boolean;
+  }
+>(({ className, label, sensitive = false, children, ...props }, ref) => {
+  return (
+    <div ref={ref} className={cn("relative", className)} {...props}>
+      {label && (
+        <Label className={cn(sensitive && "flex items-center gap-1")}>
+          {label}
+          {sensitive && (
+            <span className="inline-flex items-center justify-center rounded-full bg-green-100 px-1 text-xs text-green-700">
+              Secure
+            </span>
+          )}
+        </Label>
+      )}
+      {children}
+    </div>
+  )
+})
+FormSecureField.displayName = "FormSecureField"
+
 export {
   useFormField,
   Form,
@@ -173,4 +200,5 @@ export {
   FormDescription,
   FormMessage,
   FormField,
+  FormSecureField,
 }

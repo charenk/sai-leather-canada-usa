@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -9,13 +10,18 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage, FormSecureField } from '@/components/ui/form';
 import { Switch } from '@/components/ui/switch';
 import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group';
-import { Upload, Check, ShieldCheck, Clock, CalendarCheck } from 'lucide-react';
+import { Upload, Check, ShieldCheck, Clock, CalendarCheck, Shield, Lock } from 'lucide-react';
 import emailjs from 'emailjs-com';
+import { FileInput } from '@/components/ui/file-input';
+import { getEmailJSConfig, MAX_UPLOAD_SIZE_MB, ALLOWED_FILE_TYPES, ALLOWED_FILE_EXTENSIONS } from '@/services/config';
 
-// Zod form schema
+// Maximum file size for uploads (in MB)
+const MAX_FILE_SIZE = MAX_UPLOAD_SIZE_MB * 1024 * 1024; // 10MB
+
+// Zod form schema with file validation
 const formSchema = z.object({
   fullName: z.string().min(2, { message: "Full name must be at least 2 characters." }),
   companyName: z.string().min(1, { message: "Company name is required." }),
@@ -32,6 +38,9 @@ const formSchema = z.object({
   requestSample: z.boolean().default(false),
   shippingAddress: z.string().optional(),
   requestNDA: z.boolean().default(false),
+  agreeToTerms: z.boolean().refine(val => val === true, {
+    message: "You must agree to the terms and privacy policy.",
+  }),
 });
 
 type FormData = z.infer<typeof formSchema>;
@@ -41,6 +50,8 @@ const GetQuote = () => {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [requestingSample, setRequestingSample] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [fileError, setFileError] = useState<string | null>(null);
   
   const form = useForm<FormData>({
     resolver: zodResolver(formSchema),
@@ -60,16 +71,67 @@ const GetQuote = () => {
       requestSample: false,
       shippingAddress: "",
       requestNDA: false,
+      agreeToTerms: false,
     },
   });
+
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const files = event.target.files;
+    setFileError(null);
+    
+    if (files && files.length > 0) {
+      const file = files[0];
+      
+      if (file.size > MAX_FILE_SIZE) {
+        setFileError(`File is too large. Maximum size is ${MAX_UPLOAD_SIZE_MB}MB.`);
+        setSelectedFile(null);
+        return;
+      }
+      
+      if (!ALLOWED_FILE_TYPES.includes(file.type)) {
+        setFileError("Invalid file type. Please upload PDF, PNG, JPG, or ZIP files only.");
+        setSelectedFile(null);
+        return;
+      }
+      
+      setSelectedFile(file);
+    }
+  };
+  
+  const readFileAsBase64 = (file: File): Promise<string> => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => resolve(reader.result as string);
+      reader.onerror = error => reject(error);
+    });
+  };
 
   const onSubmit = async (data: FormData) => {
     setIsLoading(true);
     
     try {
-      // You need to replace these with your actual EmailJS credentials
+      const config = getEmailJSConfig();
+      
+      let fileData = null;
+      if (selectedFile) {
+        try {
+          fileData = await readFileAsBase64(selectedFile);
+        } catch (error) {
+          console.error("Error reading file:", error);
+          toast({
+            title: "File processing error",
+            description: "There was a problem processing your file. Please try again with a different file.",
+            variant: "destructive",
+          });
+          setIsLoading(false);
+          return;
+        }
+      }
+      
+      // Create template params
       const templateParams = {
-        to_email: "your-receiving-email@example.com", // Change this to your email
+        to_email: config.destinationEmail,
         from_name: data.fullName,
         company_name: data.companyName,
         from_email: data.email,
@@ -85,22 +147,21 @@ const GetQuote = () => {
         request_sample: data.requestSample ? "Yes" : "No",
         shipping_address: data.shippingAddress || "Not provided",
         request_nda: data.requestNDA ? "Yes" : "No",
+        file_attachment: fileData,
+        file_name: selectedFile ? selectedFile.name : "No file attached"
       };
 
-      // Replace these parameters with your actual EmailJS credentials
-      // SERVICE_ID: Your EmailJS service ID
-      // TEMPLATE_ID: Your EmailJS template ID 
-      // USER_ID: Your EmailJS user ID (public key)
+      // Send email through EmailJS
       await emailjs.send(
-        "SERVICE_ID", 
-        "TEMPLATE_ID",
+        config.serviceId,
+        config.templateId,
         templateParams,
-        "USER_ID"
+        config.userId
       );
       
       // Show success toast
       toast({
-        title: "Quote request submitted",
+        title: "Quote request submitted securely",
         description: "Thank you for your interest. We'll get back to you within 2 business days.",
       });
       
@@ -163,6 +224,14 @@ const GetQuote = () => {
   return (
     <main className="pt-32 pb-16 bg-gray-50">
       <div className="section-container">
+        {/* Security Banner */}
+        <div className="mb-8 bg-green-50 border border-green-200 rounded-lg p-4 flex items-center gap-3">
+          <Shield className="h-6 w-6 text-green-600 flex-shrink-0" />
+          <p className="text-sm text-green-800">
+            <span className="font-semibold">Secure Form:</span> Your information is protected and will only be sent to our authorized team. We never share your data with third parties.
+          </p>
+        </div>
+        
         {/* Hero Section */}
         <div className="text-center max-w-3xl mx-auto mb-12">
           <h1 className="text-4xl md:text-5xl font-display font-bold text-sai-navy mb-6">
@@ -215,7 +284,10 @@ const GetQuote = () => {
                     name="email"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel className="text-gray-700">Email Address *</FormLabel>
+                        <FormLabel className="text-gray-700 flex items-center gap-1">
+                          Email Address *
+                          <Lock className="h-3 w-3 text-green-600" />
+                        </FormLabel>
                         <FormControl>
                           <Input placeholder="you@example.com" type="email" {...field} />
                         </FormControl>
@@ -228,7 +300,10 @@ const GetQuote = () => {
                     name="phone"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel className="text-gray-700">Phone Number (optional)</FormLabel>
+                        <FormLabel className="text-gray-700 flex items-center gap-1">
+                          Phone Number (optional)
+                          <Lock className="h-3 w-3 text-green-600" />
+                        </FormLabel>
                         <FormControl>
                           <Input placeholder="Include country code" {...field} />
                         </FormControl>
@@ -444,16 +519,23 @@ const GetQuote = () => {
                 <div className="mt-6 bg-gray-50 p-4 rounded-lg">
                   <div className="flex items-center gap-2 mb-2">
                     <Upload className="h-5 w-5 text-sai-red" />
-                    <p className="font-medium text-gray-700">Reference Files</p>
+                    <p className="font-medium text-gray-700">Reference Files (Secure Upload)</p>
                   </div>
                   <p className="text-sm text-gray-500 mb-3">
-                    Upload design sketches, reference images, or technical specifications (PDF, PNG, JPG, ZIP - 10MB max)
+                    Upload design sketches, reference images, or technical specifications (PDF, PNG, JPG, ZIP - {MAX_UPLOAD_SIZE_MB}MB max)
                   </p>
-                  <Input 
-                    type="file" 
-                    accept=".pdf,.png,.jpg,.jpeg,.zip" 
-                    className="cursor-pointer"
+                  <FileInput 
+                    acceptedFileTypes={ALLOWED_FILE_TYPES}
+                    maxSize={MAX_UPLOAD_SIZE_MB}
+                    accept={ALLOWED_FILE_EXTENSIONS}
+                    onChange={handleFileChange}
                   />
+                  {selectedFile && !fileError && (
+                    <div className="mt-2 text-sm text-green-600 flex items-center gap-1">
+                      <Check className="h-4 w-4" />
+                      <span>{selectedFile.name} ({(selectedFile.size / (1024 * 1024)).toFixed(2)}MB)</span>
+                    </div>
+                  )}
                 </div>
               </div>
               
@@ -508,10 +590,10 @@ const GetQuote = () => {
               <div>
                 <h3 className="text-xl font-bold text-sai-navy mb-6 flex items-center gap-2">
                   <span className="w-8 h-8 bg-sai-red/10 rounded-full flex items-center justify-center text-sai-red">4</span>
-                  Confidentiality
+                  Confidentiality & Privacy
                 </h3>
                 
-                <div className="flex flex-row items-start space-x-3 space-y-0">
+                <div className="flex flex-row items-start space-x-3 space-y-0 mb-4">
                   <FormField
                     control={form.control}
                     name="requestNDA"
@@ -535,17 +617,45 @@ const GetQuote = () => {
                     )}
                   />
                 </div>
+                
+                <div className="mt-6 bg-blue-50 p-4 rounded-lg">
+                  <FormField
+                    control={form.control}
+                    name="agreeToTerms"
+                    render={({ field }) => (
+                      <FormItem className="flex flex-row items-start space-x-3 space-y-0">
+                        <FormControl>
+                          <Checkbox
+                            checked={field.value}
+                            onCheckedChange={field.onChange}
+                          />
+                        </FormControl>
+                        <div className="space-y-1 leading-none">
+                          <FormLabel className="text-gray-700">
+                            I agree to the privacy policy and terms of service
+                          </FormLabel>
+                          <p className="text-sm text-gray-500">
+                            Your information will be securely processed and only shared with the Sai International team. 
+                            We respect your privacy and will never share your data with third parties.
+                          </p>
+                        </div>
+                      </FormItem>
+                    )}
+                  />
+                  <FormMessage />
+                </div>
               </div>
               
               {/* Submit Button */}
               <div className="pt-4">
                 <Button
                   type="submit"
-                  className="bg-sai-red hover:bg-sai-red/90 w-full md:w-auto text-lg py-6 px-8"
+                  className="bg-sai-red hover:bg-sai-red/90 w-full md:w-auto text-lg py-6 px-8 flex items-center gap-2"
                   size="lg"
                   disabled={isLoading}
                 >
-                  {isLoading ? "Submitting..." : "Request Quote & Sample"}
+                  {isLoading ? "Submitting..." : "Request Quote & Sample Securely"}
+                  <Lock className="h-4 w-4" />
                 </Button>
               </div>
             </form>

@@ -15,9 +15,9 @@ interface EmailJSConfig {
 // For Lovable, you'd want to use Supabase Secrets or a similar solution
 // This is a temporary solution for demonstration purposes
 const emailjsConfig: EmailJSConfig = {
-  serviceId: "SERVICE_ID", // Replace with your EmailJS service ID
-  templateId: "TEMPLATE_ID", // Replace with your EmailJS template ID
-  userId: "USER_ID", // Replace with your EmailJS user ID (public key)
+  serviceId: "service_demo123", // Replace with your actual EmailJS service ID
+  templateId: "template_contact123", // Replace with your actual EmailJS template ID
+  userId: "user_abc123456", // Replace with your actual EmailJS user ID (public key)
   destinationEmail: "charen.k@gmail.com", // Updated destination email
 };
 

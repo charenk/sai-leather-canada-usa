@@ -3,15 +3,18 @@ import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
-import { Mail, Phone, Globe, MapPin } from 'lucide-react';
+import { Mail, Phone, Globe, MapPin, AlertCircle, CheckCircle } from 'lucide-react';
 import SectionHeading from '@/components/SectionHeading';
-import { useToast } from "@/components/ui/use-toast";
+import { useToast } from "@/hooks/use-toast";
+import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
 import emailjs from 'emailjs-com';
 import { getEmailJSConfig } from '@/services/config';
 
 const Contact = () => {
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [formError, setFormError] = useState<string | null>(null);
+  const [formSuccess, setFormSuccess] = useState<string | null>(null);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -29,9 +32,16 @@ const Contact = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
+    setFormError(null);
+    setFormSuccess(null);
     
     try {
       const config = getEmailJSConfig();
+      
+      // Validate the EmailJS config
+      if (!config.serviceId || !config.templateId || !config.userId) {
+        throw new Error("EmailJS configuration is incomplete. Please set up your EmailJS credentials.");
+      }
       
       // Create template params
       const templateParams = {
@@ -44,6 +54,13 @@ const Contact = () => {
         message: formData.message
       };
 
+      console.log("Sending email with params:", templateParams);
+      console.log("Using EmailJS config:", {
+        serviceId: config.serviceId,
+        templateId: config.templateId,
+        userId: "HIDDEN" // Don't log the actual userId for security
+      });
+
       // Send email through EmailJS
       await emailjs.send(
         config.serviceId,
@@ -52,10 +69,7 @@ const Contact = () => {
         config.userId
       );
       
-      toast({
-        title: "Message sent successfully",
-        description: "Thank you for your message. We'll get back to you soon!",
-      });
+      setFormSuccess("Thank you for your message. We'll get back to you soon!");
       
       // Reset form
       setFormData({
@@ -68,6 +82,7 @@ const Contact = () => {
       });
     } catch (error) {
       console.error("Email sending failed:", error);
+      setFormError("There was a problem sending your message. Please try again or contact us directly.");
       toast({
         title: "Submission failed",
         description: "There was a problem sending your message. Please try again or contact us directly.",
@@ -151,6 +166,22 @@ const Contact = () => {
           <div className="w-full lg:w-2/3">
             <div className="bg-white rounded-xl p-8 shadow-md">
               <h3 className="text-xl font-bold text-sai-navy mb-6">Send us a Message</h3>
+              
+              {formError && (
+                <Alert variant="destructive" className="mb-6">
+                  <AlertCircle className="h-4 w-4" />
+                  <AlertTitle>Error</AlertTitle>
+                  <AlertDescription>{formError}</AlertDescription>
+                </Alert>
+              )}
+              
+              {formSuccess && (
+                <Alert variant="success" className="mb-6">
+                  <CheckCircle className="h-4 w-4" />
+                  <AlertTitle>Success</AlertTitle>
+                  <AlertDescription>{formSuccess}</AlertDescription>
+                </Alert>
+              )}
               
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">

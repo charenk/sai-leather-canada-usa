@@ -4,6 +4,18 @@ import ClientLogo from '@/components/ClientLogo';
 import { Card, CardContent } from '@/components/ui/card';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 
+// Import logo assets directly
+import gerardDarelLogo from '@/assets/logos/gerard-darel.png';
+import carollLogo from '@/assets/logos/caroll.png';
+import maison123Logo from '@/assets/logos/maison123.png';
+import burberryLogo from '@/assets/logos/burberry.png';
+import emporioArmaniLogo from '@/assets/logos/emporio-armani.png';
+import louisVuittonLogo from '@/assets/logos/louis-vuitton.png';
+import gucciLogo from '@/assets/logos/gucci.png';
+import zaraLogo from '@/assets/logos/zara.png';
+import hmLogo from '@/assets/logos/hm.png';
+import mangoLogo from '@/assets/logos/mango.png';
+
 const ClientelePage = () => {
   return (
     <main className="pt-32 pb-16">
@@ -17,47 +29,17 @@ const ClientelePage = () => {
         <div className="mt-12">
           <h3 className="text-xl font-bold text-sai-navy mb-6">European Partners</h3>
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
-            <ClientLogo 
-              name="Gerard Darel" 
-              logoSrc="/src/assets/logos/gerard-darel.png" 
-            />
-            <ClientLogo 
-              name="Caroll Paris" 
-              logoSrc="/src/assets/logos/caroll.png" 
-            />
-            <ClientLogo 
-              name="Maison 123" 
-              logoSrc="/src/assets/logos/maison123.png" 
-            />
-            <ClientLogo 
-              name="Burberry" 
-              logoSrc="/src/assets/logos/burberry.png" 
-            />
-            <ClientLogo 
-              name="Emporio Armani" 
-              logoSrc="/src/assets/logos/emporio-armani.png" 
-            />
+            <ClientLogo name="Gerard Darel" logoSrc={gerardDarelLogo} />
+            <ClientLogo name="Caroll Paris" logoSrc={carollLogo} />
+            <ClientLogo name="Maison 123" logoSrc={maison123Logo} />
+            <ClientLogo name="Burberry" logoSrc={burberryLogo} />
+            <ClientLogo name="Emporio Armani" logoSrc={emporioArmaniLogo} />
             {/* Add more European clients */}
-            <ClientLogo 
-              name="Louis Vuitton" 
-              logoSrc="/src/assets/logos/louis-vuitton.png" 
-            />
-            <ClientLogo 
-              name="Gucci" 
-              logoSrc="/src/assets/logos/gucci.png" 
-            />
-            <ClientLogo 
-              name="Zara" 
-              logoSrc="/src/assets/logos/zara.png" 
-            />
-            <ClientLogo 
-              name="H&M" 
-              logoSrc="/src/assets/logos/hm.png" 
-            />
-            <ClientLogo 
-              name="Mango" 
-              logoSrc="/src/assets/logos/mango.png" 
-            />
+            <ClientLogo name="Louis Vuitton" logoSrc={louisVuittonLogo} />
+            <ClientLogo name="Gucci" logoSrc={gucciLogo} />
+            <ClientLogo name="Zara" logoSrc={zaraLogo} />
+            <ClientLogo name="H&M" logoSrc={hmLogo} />
+            <ClientLogo name="Mango" logoSrc={mangoLogo} />
           </div>
         </div>
         

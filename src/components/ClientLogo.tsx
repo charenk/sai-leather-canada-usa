@@ -9,6 +9,9 @@ interface ClientLogoProps {
 }
 
 const ClientLogo = ({ name, logoSrc, className }: ClientLogoProps) => {
+  // Extract the file name from the path for cleaner error handling
+  const fileName = logoSrc ? logoSrc.split('/').pop() : '';
+  
   return (
     <div 
       className={cn(
@@ -18,7 +21,16 @@ const ClientLogo = ({ name, logoSrc, className }: ClientLogoProps) => {
     >
       <AspectRatio ratio={16/9} className="flex items-center justify-center w-full">
         {logoSrc ? (
-          <img src={logoSrc} alt={`${name} logo`} className="max-h-12 max-w-full object-contain" />
+          <img 
+            src={logoSrc} 
+            alt={`${name} logo`} 
+            className="max-h-12 max-w-full object-contain" 
+            onError={(e) => {
+              console.error(`Failed to load image: ${fileName}`);
+              e.currentTarget.style.display = 'none';
+              e.currentTarget.parentElement!.innerHTML = `<span class="text-gray-500 font-medium text-center">${name}</span>`;
+            }}
+          />
         ) : (
           <span className="text-gray-500 font-medium text-center">{name}</span>
         )}

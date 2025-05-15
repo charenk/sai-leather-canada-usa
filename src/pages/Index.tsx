@@ -35,7 +35,7 @@ const Index = () => {
               Premium OEM <span className="text-sai-red">Leather</span> Garment Manufacturer
             </h1>
             <p className="mt-6 text-xl text-gray-700 max-w-lg">
-              15+ years of experience crafting high-quality leather garments for European brands, now expanding to North America.
+              15+ years of experience crafting high-quality leather garments for European brands, with a global vision for growth and expansion.
             </p>
             <div className="mt-8 flex flex-col sm:flex-row gap-4">
               <Button asChild size="lg" className="bg-sai-red hover:bg-sai-red/90">

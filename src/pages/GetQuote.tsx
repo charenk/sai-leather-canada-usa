@@ -234,7 +234,7 @@ const GetQuote = () => {
         {/* Hero Section */}
         <div className="text-center max-w-3xl mx-auto mb-12">
           <p className="text-lg text-gray-600">
-            Tell us what you need. We'll respond within 2 business days.
+            Request a personalized quote or sample. We're here to support your sourcing journey—confidentiality guaranteed.
           </p>
         </div>
         

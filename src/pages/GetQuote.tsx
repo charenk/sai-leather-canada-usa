@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -14,6 +13,7 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '
 import { Switch } from '@/components/ui/switch';
 import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group';
 import { Upload, Check, ShieldCheck, Clock, CalendarCheck } from 'lucide-react';
+import emailjs from 'emailjs-com';
 
 // Zod form schema
 const formSchema = z.object({
@@ -40,6 +40,7 @@ const GetQuote = () => {
   const { toast } = useToast();
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [requestingSample, setRequestingSample] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   
   const form = useForm<FormData>({
     resolver: zodResolver(formSchema),
@@ -62,18 +63,59 @@ const GetQuote = () => {
     },
   });
 
-  const onSubmit = (data: FormData) => {
-    // In a real implementation, you would send this data to a server
-    console.log(data);
+  const onSubmit = async (data: FormData) => {
+    setIsLoading(true);
     
-    // Show success toast
-    toast({
-      title: "Quote request submitted",
-      description: "Thank you for your interest. We'll get back to you within 2 business days.",
-    });
-    
-    // Show the thank you message
-    setIsSubmitted(true);
+    try {
+      // You need to replace these with your actual EmailJS credentials
+      const templateParams = {
+        to_email: "your-receiving-email@example.com", // Change this to your email
+        from_name: data.fullName,
+        company_name: data.companyName,
+        from_email: data.email,
+        phone: data.phone || "Not provided",
+        country: data.country,
+        product_type: data.productType,
+        leather_type: data.leatherType,
+        finish_type: data.finishType,
+        quantity: data.quantity,
+        target_price: data.targetPrice || "Not specified",
+        timeline: data.timeline,
+        additional_info: data.additionalInfo || "None",
+        request_sample: data.requestSample ? "Yes" : "No",
+        shipping_address: data.shippingAddress || "Not provided",
+        request_nda: data.requestNDA ? "Yes" : "No",
+      };
+
+      // Replace these parameters with your actual EmailJS credentials
+      // SERVICE_ID: Your EmailJS service ID
+      // TEMPLATE_ID: Your EmailJS template ID 
+      // USER_ID: Your EmailJS user ID (public key)
+      await emailjs.send(
+        "SERVICE_ID", 
+        "TEMPLATE_ID",
+        templateParams,
+        "USER_ID"
+      );
+      
+      // Show success toast
+      toast({
+        title: "Quote request submitted",
+        description: "Thank you for your interest. We'll get back to you within 2 business days.",
+      });
+      
+      // Show the thank you message
+      setIsSubmitted(true);
+    } catch (error) {
+      console.error("Email sending failed:", error);
+      toast({
+        title: "Submission failed",
+        description: "There was a problem submitting your form. Please try again or contact us directly.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const countries = [
@@ -501,8 +543,9 @@ const GetQuote = () => {
                   type="submit"
                   className="bg-sai-red hover:bg-sai-red/90 w-full md:w-auto text-lg py-6 px-8"
                   size="lg"
+                  disabled={isLoading}
                 >
-                  Request Quote & Sample
+                  {isLoading ? "Submitting..." : "Request Quote & Sample"}
                 </Button>
               </div>
             </form>

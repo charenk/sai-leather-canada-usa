@@ -39,8 +39,8 @@ const Contact = () => {
                 <Phone className="h-5 w-5 text-sai-red mt-1 mr-3" />
                 <div>
                   <p className="font-medium">Phone</p>
-                  <a href="tel:+919876543210" className="text-gray-600 hover:text-sai-red">
-                    +91 98765 43210
+                  <a href="tel:+919840060444" className="text-gray-600 hover:text-sai-red">
+                    +91 9840060444
                   </a>
                 </div>
               </div>
@@ -49,8 +49,8 @@ const Contact = () => {
                 <Mail className="h-5 w-5 text-sai-red mt-1 mr-3" />
                 <div>
                   <p className="font-medium">Email</p>
-                  <a href="mailto:info@saiinternational.com" className="text-gray-600 hover:text-sai-red">
-                    info@saiinternational.com
+                  <a href="mailto:raju@saiintl.co.in" className="text-gray-600 hover:text-sai-red">
+                    raju@saiintl.co.in
                   </a>
                 </div>
               </div>
@@ -59,8 +59,8 @@ const Contact = () => {
                 <Globe className="h-5 w-5 text-sai-red mt-1 mr-3" />
                 <div>
                   <p className="font-medium">Website</p>
-                  <a href="https://www.saiinternational.com" target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-sai-red">
-                    www.saiinternational.com
+                  <a href="https://www.saiintl.co.in" target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-sai-red">
+                    www.saiintl.co.in
                   </a>
                 </div>
               </div>
@@ -70,9 +70,8 @@ const Contact = () => {
                 <div>
                   <p className="font-medium">Address</p>
                   <address className="text-gray-600 not-italic">
-                    123 Manufacturing Drive<br />
-                    Industrial Area, Phase 2<br />
-                    New Delhi, 110001<br />
+                    17/5 NAVANEETHAMMAL STREET AMINJIKARAI<br />
+                    Chennai, Tamil Nadu 600029<br />
                     India
                   </address>
                 </div>

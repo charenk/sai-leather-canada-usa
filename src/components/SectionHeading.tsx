@@ -28,7 +28,7 @@ const SectionHeading = ({
         className
       )}
     >
-      <h2 className="text-3xl md:text-4xl lg:text-5xl font-display font-bold text-sai-navy">
+      <h2 className="text-3xl md:text-4xl font-medium text-gray-800 tracking-tight">
         {title}
       </h2>
       {subtitle && (

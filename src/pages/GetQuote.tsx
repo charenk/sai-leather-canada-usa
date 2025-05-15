@@ -12,7 +12,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage, FormSecureField } from '@/components/ui/form';
 import { Switch } from '@/components/ui/switch';
 import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group';
-import { Upload, Check, ShieldCheck, Clock, CalendarCheck, Shield, Lock } from 'lucide-react';
+import { Upload, Check, ShieldCheck, Clock, CalendarCheck, Shield, Lock, CalendarDays } from 'lucide-react';
 import emailjs from 'emailjs-com';
 import { FileInput } from '@/components/ui/file-input';
 import { getEmailJSConfig, MAX_UPLOAD_SIZE_MB, ALLOWED_FILE_TYPES, ALLOWED_FILE_EXTENSIONS } from '@/services/config';
@@ -229,6 +229,29 @@ const GetQuote = () => {
           <p className="text-sm text-green-800">
             <span className="font-semibold">Secure Form:</span> Your information is protected and will only be sent to our authorized team. We never share your data with third parties.
           </p>
+        </div>
+        
+        {/* Calendar Call-out Section */}
+        <div className="mb-10 bg-blue-50 border border-blue-100 rounded-lg p-6">
+          <div className="flex flex-col md:flex-row items-center gap-6">
+            <div className="bg-white p-4 rounded-full shadow-sm">
+              <CalendarDays className="h-10 w-10 text-blue-600" />
+            </div>
+            <div className="flex-1">
+              <h3 className="text-xl font-bold text-sai-navy mb-2">Prefer a conversation instead?</h3>
+              <p className="text-gray-600 mb-4">
+                If you'd rather discuss your requirements directly with our team, you can schedule a 30-minute consultation call. We'll address your questions and provide personalized guidance.
+              </p>
+              <Button 
+                className="bg-blue-600 hover:bg-blue-700"
+                size="lg"
+                onClick={() => window.open('https://calendly.com/your-calendar-link', '_blank')}
+              >
+                <CalendarCheck className="mr-2 h-5 w-5" />
+                Book a 30-minute consultation
+              </Button>
+            </div>
+          </div>
         </div>
         
         {/* Hero Section */}

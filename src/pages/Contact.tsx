@@ -175,16 +175,6 @@ const Contact = () => {
           </div>
         </div>
       </div>
-      
-      {/* Map Section */}
-      <section className="mt-16">
-        <div className="h-96 w-full bg-gray-300">
-          {/* In a real implementation, you would integrate Google Maps or another map service */}
-          <div className="h-full w-full flex items-center justify-center bg-gray-200">
-            <p className="text-gray-600">Map placeholder - Google Maps would be integrated here</p>
-          </div>
-        </div>
-      </section>
     </main>
   );
 };

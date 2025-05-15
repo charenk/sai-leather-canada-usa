@@ -233,9 +233,6 @@ const GetQuote = () => {
         
         {/* Hero Section */}
         <div className="text-center max-w-3xl mx-auto mb-12">
-          <h1 className="text-4xl md:text-5xl font-display font-bold text-sai-navy mb-6">
-            Request a Custom Leather Quote
-          </h1>
           <p className="text-lg text-gray-600">
             Tell us what you need. We'll respond within 2 business days.
           </p>

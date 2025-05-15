@@ -1,0 +1,193 @@
+
+import React from 'react';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Textarea } from '@/components/ui/textarea';
+import { Mail, Phone, Globe, MapPin } from 'lucide-react';
+import SectionHeading from '@/components/SectionHeading';
+import { useToast } from "@/components/ui/use-toast";
+
+const Contact = () => {
+  const { toast } = useToast();
+  
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    // In a real implementation, you would send the form data to a server
+    toast({
+      title: "Form submitted",
+      description: "Thank you for your message. We'll get back to you soon!",
+    });
+  };
+
+  return (
+    <main className="pt-32 pb-16">
+      <div className="section-container">
+        <SectionHeading 
+          title="Contact Us" 
+          subtitle="We're excited to hear from you. Reach out to discuss how we can meet your leather manufacturing needs."
+          alignment="center"
+        />
+        
+        <div className="mt-12 flex flex-col lg:flex-row gap-12">
+          {/* Contact Information */}
+          <div className="w-full lg:w-1/3 space-y-10">
+            <div className="space-y-5">
+              <h3 className="text-xl font-bold text-sai-navy">Contact Information</h3>
+              
+              <div className="flex items-start">
+                <Phone className="h-5 w-5 text-sai-red mt-1 mr-3" />
+                <div>
+                  <p className="font-medium">Phone</p>
+                  <a href="tel:+919876543210" className="text-gray-600 hover:text-sai-red">
+                    +91 98765 43210
+                  </a>
+                </div>
+              </div>
+              
+              <div className="flex items-start">
+                <Mail className="h-5 w-5 text-sai-red mt-1 mr-3" />
+                <div>
+                  <p className="font-medium">Email</p>
+                  <a href="mailto:info@saiinternational.com" className="text-gray-600 hover:text-sai-red">
+                    info@saiinternational.com
+                  </a>
+                </div>
+              </div>
+              
+              <div className="flex items-start">
+                <Globe className="h-5 w-5 text-sai-red mt-1 mr-3" />
+                <div>
+                  <p className="font-medium">Website</p>
+                  <a href="https://www.saiinternational.com" target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-sai-red">
+                    www.saiinternational.com
+                  </a>
+                </div>
+              </div>
+              
+              <div className="flex items-start">
+                <MapPin className="h-5 w-5 text-sai-red mt-1 mr-3" />
+                <div>
+                  <p className="font-medium">Address</p>
+                  <address className="text-gray-600 not-italic">
+                    123 Manufacturing Drive<br />
+                    Industrial Area, Phase 2<br />
+                    New Delhi, 110001<br />
+                    India
+                  </address>
+                </div>
+              </div>
+            </div>
+            
+            <div>
+              <h3 className="text-xl font-bold text-sai-navy mb-4">North America Office</h3>
+              <address className="text-gray-600 not-italic">
+                456 Fashion Avenue<br />
+                Suite 789<br />
+                Toronto, ON M5V 2T6<br />
+                Canada
+              </address>
+            </div>
+          </div>
+          
+          {/* Contact Form */}
+          <div className="w-full lg:w-2/3">
+            <div className="bg-white rounded-xl p-8 shadow-md">
+              <h3 className="text-xl font-bold text-sai-navy mb-6">Send us a Message</h3>
+              
+              <form onSubmit={handleSubmit} className="space-y-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="space-y-2">
+                    <label htmlFor="name" className="text-sm font-medium">
+                      Full Name
+                    </label>
+                    <Input 
+                      id="name"
+                      placeholder="Enter your name"
+                      required
+                    />
+                  </div>
+                  
+                  <div className="space-y-2">
+                    <label htmlFor="email" className="text-sm font-medium">
+                      Email Address
+                    </label>
+                    <Input 
+                      id="email"
+                      type="email"
+                      placeholder="Enter your email"
+                      required
+                    />
+                  </div>
+                  
+                  <div className="space-y-2">
+                    <label htmlFor="company" className="text-sm font-medium">
+                      Company Name
+                    </label>
+                    <Input 
+                      id="company"
+                      placeholder="Enter your company name"
+                    />
+                  </div>
+                  
+                  <div className="space-y-2">
+                    <label htmlFor="phone" className="text-sm font-medium">
+                      Phone Number
+                    </label>
+                    <Input 
+                      id="phone"
+                      placeholder="Enter your phone number"
+                    />
+                  </div>
+                </div>
+                
+                <div className="space-y-2">
+                  <label htmlFor="subject" className="text-sm font-medium">
+                    Subject
+                  </label>
+                  <Input 
+                    id="subject"
+                    placeholder="What is this regarding?"
+                    required
+                  />
+                </div>
+                
+                <div className="space-y-2">
+                  <label htmlFor="message" className="text-sm font-medium">
+                    Message
+                  </label>
+                  <Textarea 
+                    id="message"
+                    placeholder="How can we help you?"
+                    rows={6}
+                    required
+                  />
+                </div>
+                
+                <Button 
+                  type="submit" 
+                  className="bg-sai-red hover:bg-sai-red/90 w-full"
+                  size="lg"
+                >
+                  Send Message
+                </Button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      {/* Map Section */}
+      <section className="mt-16">
+        <div className="h-96 w-full bg-gray-300">
+          {/* In a real implementation, you would integrate Google Maps or another map service */}
+          <div className="h-full w-full flex items-center justify-center bg-gray-200">
+            <p className="text-gray-600">Map placeholder - Google Maps would be integrated here</p>
+          </div>
+        </div>
+      </section>
+    </main>
+  );
+};
+
+export default Contact;

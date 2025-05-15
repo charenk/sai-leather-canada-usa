@@ -65,13 +65,27 @@ const Index = () => {
       <section className="py-16">
         <div className="section-container">
           <p className="text-center text-gray-600 mb-10">Trusted by leading brands across Europe</p>
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6">
-            <ClientLogo name="Client 1" />
-            <ClientLogo name="Client 2" />
-            <ClientLogo name="Client 3" />
-            <ClientLogo name="Client 4" />
-            <ClientLogo name="Client 5" />
-            <ClientLogo name="Client 6" />
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
+            <ClientLogo 
+              name="Gerard Darel" 
+              logoSrc="/src/assets/logos/gerard-darel.png" 
+            />
+            <ClientLogo 
+              name="Caroll Paris" 
+              logoSrc="/src/assets/logos/caroll.png" 
+            />
+            <ClientLogo 
+              name="Maison 123" 
+              logoSrc="/src/assets/logos/maison123.png" 
+            />
+            <ClientLogo 
+              name="Burberry" 
+              logoSrc="/src/assets/logos/burberry.png" 
+            />
+            <ClientLogo 
+              name="Emporio Armani" 
+              logoSrc="/src/assets/logos/emporio-armani.png" 
+            />
           </div>
         </div>
       </section>

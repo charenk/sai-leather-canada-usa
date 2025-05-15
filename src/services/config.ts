@@ -18,7 +18,7 @@ const emailjsConfig: EmailJSConfig = {
   serviceId: "SERVICE_ID", // Replace with your EmailJS service ID
   templateId: "TEMPLATE_ID", // Replace with your EmailJS template ID
   userId: "USER_ID", // Replace with your EmailJS user ID (public key)
-  destinationEmail: "your-receiving-email@example.com", // Change to your email
+  destinationEmail: "charen.k@gmail.com", // Updated destination email
 };
 
 // Method to get EmailJS config without exposing it directly in the component

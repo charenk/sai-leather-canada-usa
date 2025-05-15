@@ -1,23 +1,81 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Mail, Phone, Globe, MapPin } from 'lucide-react';
 import SectionHeading from '@/components/SectionHeading';
 import { useToast } from "@/components/ui/use-toast";
+import emailjs from 'emailjs-com';
+import { getEmailJSConfig } from '@/services/config';
 
 const Contact = () => {
   const { toast } = useToast();
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    company: '',
+    phone: '',
+    subject: '',
+    message: ''
+  });
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { id, value } = e.target;
+    setFormData(prev => ({ ...prev, [id]: value }));
+  };
   
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setIsSubmitting(true);
     
-    // In a real implementation, you would send the form data to a server
-    toast({
-      title: "Form submitted",
-      description: "Thank you for your message. We'll get back to you soon!",
-    });
+    try {
+      const config = getEmailJSConfig();
+      
+      // Create template params
+      const templateParams = {
+        to_email: config.destinationEmail,
+        from_name: formData.name,
+        company_name: formData.company || "Not provided",
+        from_email: formData.email,
+        phone: formData.phone || "Not provided",
+        subject: formData.subject,
+        message: formData.message
+      };
+
+      // Send email through EmailJS
+      await emailjs.send(
+        config.serviceId,
+        config.templateId,
+        templateParams,
+        config.userId
+      );
+      
+      toast({
+        title: "Message sent successfully",
+        description: "Thank you for your message. We'll get back to you soon!",
+      });
+      
+      // Reset form
+      setFormData({
+        name: '',
+        email: '',
+        company: '',
+        phone: '',
+        subject: '',
+        message: ''
+      });
+    } catch (error) {
+      console.error("Email sending failed:", error);
+      toast({
+        title: "Submission failed",
+        description: "There was a problem sending your message. Please try again or contact us directly.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -104,6 +162,8 @@ const Contact = () => {
                       id="name"
                       placeholder="Enter your name"
                       required
+                      value={formData.name}
+                      onChange={handleChange}
                     />
                   </div>
                   
@@ -116,6 +176,8 @@ const Contact = () => {
                       type="email"
                       placeholder="Enter your email"
                       required
+                      value={formData.email}
+                      onChange={handleChange}
                     />
                   </div>
                   
@@ -126,6 +188,8 @@ const Contact = () => {
                     <Input 
                       id="company"
                       placeholder="Enter your company name"
+                      value={formData.company}
+                      onChange={handleChange}
                     />
                   </div>
                   
@@ -136,6 +200,8 @@ const Contact = () => {
                     <Input 
                       id="phone"
                       placeholder="Enter your phone number"
+                      value={formData.phone}
+                      onChange={handleChange}
                     />
                   </div>
                 </div>
@@ -148,6 +214,8 @@ const Contact = () => {
                     id="subject"
                     placeholder="What is this regarding?"
                     required
+                    value={formData.subject}
+                    onChange={handleChange}
                   />
                 </div>
                 
@@ -160,6 +228,8 @@ const Contact = () => {
                     placeholder="How can we help you?"
                     rows={6}
                     required
+                    value={formData.message}
+                    onChange={handleChange}
                   />
                 </div>
                 
@@ -167,8 +237,9 @@ const Contact = () => {
                   type="submit" 
                   className="bg-sai-red hover:bg-sai-red/90 w-full"
                   size="lg"
+                  disabled={isSubmitting}
                 >
-                  Send Message
+                  {isSubmitting ? "Sending..." : "Send Message"}
                 </Button>
               </form>
             </div>

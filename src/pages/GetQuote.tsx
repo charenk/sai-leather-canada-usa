@@ -130,7 +130,7 @@ const GetQuote = () => {
       
       // Create template params
       const templateParams = {
-        to_email: config.destinationEmail,
+        to_email: config.destinationEmail, // This will use the updated email from config
         from_name: data.fullName,
         company_name: data.companyName,
         from_email: data.email,

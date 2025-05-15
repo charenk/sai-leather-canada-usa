@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Button } from '@/components/ui/button';
 import SectionHeading from '@/components/SectionHeading';
@@ -16,31 +15,8 @@ const Services = () => {
           alignment="center"
         />
 
-        {/* Core Services */}
-        <section className="mt-16">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-            <div>
-              <h3 className="text-2xl font-bold text-sai-navy mb-6">Core Manufacturing Services</h3>
-              <p className="text-gray-700 mb-6">
-                Sai International offers comprehensive OEM manufacturing services for premium leather goods. With 15+ years of experience serving European luxury brands, we bring expertise, quality, and reliability to every project.
-              </p>
-              <p className="text-gray-700 mb-6">
-                Our state-of-the-art facilities and skilled artisans combine traditional craftsmanship with modern production techniques to deliver exceptional products that meet the highest standards of quality.
-              </p>
-            </div>
-            
-            <div className="rounded-xl overflow-hidden">
-              <img 
-                src="https://images.unsplash.com/photo-1530883374828-563643f6b43c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" 
-                alt="Leather manufacturing process" 
-                className="w-full h-auto object-cover aspect-[4/3]" 
-              />
-            </div>
-          </div>
-        </section>
-
         {/* Service Process - REDESIGNED */}
-        <section className="mt-20">
+        <section className="mt-16">
           <h3 className="text-2xl font-bold text-sai-navy mb-8">Our OEM Process</h3>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">

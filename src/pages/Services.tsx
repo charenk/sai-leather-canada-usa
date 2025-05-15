@@ -3,7 +3,8 @@ import React from 'react';
 import { Button } from '@/components/ui/button';
 import SectionHeading from '@/components/SectionHeading';
 import { Link } from 'react-router-dom';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, Package, Workflow } from 'lucide-react';
+import { Card, CardContent } from '@/components/ui/card';
 
 const Services = () => {
   return (
@@ -38,64 +39,61 @@ const Services = () => {
           </div>
         </section>
 
-        {/* Service Process */}
+        {/* Service Process - REDESIGNED */}
         <section className="mt-20">
           <h3 className="text-2xl font-bold text-sai-navy mb-8">Our OEM Process</h3>
           
-          <div className="space-y-12">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {[
               {
-                step: "Consultation & Design",
-                description: "We start by understanding your brand's vision, target market, and specific requirements. Our design team collaborates with you to refine concepts, provide material recommendations, and develop technical specifications.",
-                image: "https://images.unsplash.com/photo-1581291518633-83b4ebd1d83e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80"
+                step: 1,
+                title: "Consultation & Design",
+                description: "Understanding your brand vision and developing technical specifications.",
+                icon: <Workflow className="h-8 w-8 text-sai-red mb-4" />
               },
               {
-                step: "Sampling & Prototyping",
-                description: "Once designs are approved, we create detailed prototypes for your review. This crucial step allows for refinements before full production begins. We provide multiple revisions until the product perfectly matches your vision.",
-                image: "https://images.unsplash.com/photo-1569137273169-a8f7ccd8cd9d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80"
+                step: 2,
+                title: "Sampling & Prototyping",
+                description: "Creating detailed prototypes for your review and refinement.",
+                icon: <Package className="h-8 w-8 text-sai-red mb-4" />
               },
               {
-                step: "Material Sourcing",
-                description: "We source premium quality leathers and materials from ethical suppliers. Our procurement team ensures all materials meet our rigorous standards for quality, sustainability, and compliance with international regulations.",
-                image: "https://images.unsplash.com/photo-1563483623993-36255a856c0f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80"
+                step: 3,
+                title: "Material Sourcing",
+                description: "Sourcing premium leathers from ethical suppliers.",
+                icon: <Workflow className="h-8 w-8 text-sai-red mb-4" />
               },
               {
-                step: "Production",
-                description: "Our skilled artisans and modern production facilities work together to create your products with precision and care. Each piece is crafted according to the approved specifications, with regular quality checks throughout the process.",
-                image: "https://images.unsplash.com/photo-1597843786215-9a1c2c952107?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80"
+                step: 4,
+                title: "Production",
+                description: "Skilled artisans crafting each piece with precision.",
+                icon: <Package className="h-8 w-8 text-sai-red mb-4" />
               },
               {
-                step: "Quality Control",
-                description: "Our comprehensive quality control process ensures every product meets our exacting standards. Each piece undergoes multiple inspections for material quality, construction, stitching, finish, and overall appearance.",
-                image: "https://images.unsplash.com/photo-1581291518633-83b4ebd1d83e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80"
+                step: 5,
+                title: "Quality Control",
+                description: "Multiple inspections ensuring exceptional quality.",
+                icon: <Workflow className="h-8 w-8 text-sai-red mb-4" />
               },
               {
-                step: "Packaging & Shipping",
-                description: "We offer custom packaging solutions to enhance your brand presentation. Our logistics team ensures reliable and timely shipping to destinations across North America and Europe, with full tracking and documentation.",
-                image: "https://images.unsplash.com/photo-1608115959373-d4ee03d8f4d1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80"
+                step: 6,
+                title: "Packaging & Shipping",
+                description: "Custom packaging solutions and reliable logistics.",
+                icon: <Package className="h-8 w-8 text-sai-red mb-4" />
               }
-            ].map((service, index) => (
-              <div key={index} className={`flex flex-col ${index % 2 === 1 ? 'md:flex-row-reverse' : 'md:flex-row'} gap-8 items-center`}>
-                <div className="w-full md:w-1/2">
-                  <div className="flex items-start">
-                    <div className="w-12 h-12 bg-sai-red rounded-full flex items-center justify-center text-white font-bold mr-4 flex-shrink-0">
-                      {index + 1}
+            ].map((process, index) => (
+              <Card key={index} className="border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
+                <CardContent className="pt-6">
+                  <div className="flex flex-col items-center text-center">
+                    {process.icon}
+                    <div className="w-10 h-10 bg-sai-red/10 rounded-full flex items-center justify-center mb-4">
+                      <span className="font-bold text-sai-red">{process.step}</span>
                     </div>
-                    <div>
-                      <h4 className="text-xl font-bold text-sai-navy mb-4">{service.step}</h4>
-                      <p className="text-gray-700">{service.description}</p>
-                    </div>
+                    <h4 className="text-lg font-bold text-sai-navy mb-2">{process.title}</h4>
+                    <p className="text-gray-600 text-sm">{process.description}</p>
                   </div>
-                </div>
-                
-                <div className="w-full md:w-1/2">
-                  <img 
-                    src={service.image} 
-                    alt={service.step} 
-                    className="w-full h-64 object-cover rounded-xl shadow-md" 
-                  />
-                </div>
-              </div>
+                </CardContent>
+              </Card>
             ))}
           </div>
         </section>

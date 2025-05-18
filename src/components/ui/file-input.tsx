@@ -10,7 +10,7 @@ export interface FileInputProps extends Omit<React.InputHTMLAttributes<HTMLInput
 }
 
 export const FileInput = React.forwardRef<HTMLInputElement, FileInputProps>(
-  ({ className, maxSize = 10, acceptedFileTypes = [], onChange, ...props }, ref) => {
+  ({ className, maxSize = 5, acceptedFileTypes = [], onChange, ...props }, ref) => {
     const [error, setError] = React.useState<string | null>(null);
     const inputRef = React.useRef<HTMLInputElement>(null);
     

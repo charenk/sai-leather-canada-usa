@@ -23,6 +23,7 @@ const emailjsConfig: EmailJSConfig = {
 
 // Method to get EmailJS config without exposing it directly in the component
 export const getEmailJSConfig = (): EmailJSConfig => {
+  // Basic obfuscation - in production, use server-side environment variables
   return {
     serviceId: emailjsConfig.serviceId,
     templateId: emailjsConfig.templateId,
@@ -41,3 +42,7 @@ export const ALLOWED_FILE_TYPES = [
   "application/x-zip-compressed"
 ];
 export const ALLOWED_FILE_EXTENSIONS = ".pdf,.png,.jpg,.jpeg,.zip";
+
+// Rate limiting settings
+export const SUBMISSION_LIMIT = 5; // Max submissions in time period
+export const SUBMISSION_TIMEFRAME_MS = 3600000; // 1 hour in milliseconds

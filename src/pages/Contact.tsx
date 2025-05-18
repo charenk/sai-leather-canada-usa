@@ -1,20 +1,21 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
-import { Mail, Phone, Globe, MapPin, AlertCircle, CheckCircle } from 'lucide-react';
+import { Mail, Phone, Globe, MapPin, AlertCircle, CheckCircle, ShieldAlert } from 'lucide-react';
 import SectionHeading from '@/components/SectionHeading';
 import { useToast } from "@/hooks/use-toast";
 import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
 import emailjs from 'emailjs-com';
-import { getEmailJSConfig } from '@/services/config';
+import { getEmailJSConfig, SUBMISSION_LIMIT, SUBMISSION_TIMEFRAME_MS } from '@/services/config';
 
 const Contact = () => {
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [formError, setFormError] = useState<string | null>(null);
   const [formSuccess, setFormSuccess] = useState<string | null>(null);
+  const [isRateLimited, setIsRateLimited] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -24,9 +25,62 @@ const Contact = () => {
     message: ''
   });
 
+  // Check rate limiting on component mount
+  useEffect(() => {
+    checkRateLimit();
+  }, []);
+
+  const checkRateLimit = () => {
+    const submissionHistory = JSON.parse(localStorage.getItem('contactSubmissions') || '[]');
+    const now = Date.now();
+    
+    // Filter out submissions older than the timeframe
+    const recentSubmissions = submissionHistory.filter(
+      (timestamp: number) => now - timestamp < SUBMISSION_TIMEFRAME_MS
+    );
+    
+    // Update storage with only recent submissions
+    localStorage.setItem('contactSubmissions', JSON.stringify(recentSubmissions));
+    
+    // Check if user is rate limited
+    if (recentSubmissions.length >= SUBMISSION_LIMIT) {
+      setIsRateLimited(true);
+      setFormError(`Maximum submission limit reached. Please try again later.`);
+    }
+  };
+
+  const updateSubmissionHistory = () => {
+    const submissionHistory = JSON.parse(localStorage.getItem('contactSubmissions') || '[]');
+    const updatedHistory = [...submissionHistory, Date.now()];
+    localStorage.setItem('contactSubmissions', JSON.stringify(updatedHistory));
+    
+    // Re-check rate limit
+    checkRateLimit();
+  };
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { id, value } = e.target;
     setFormData(prev => ({ ...prev, [id]: value }));
+  };
+  
+  const validateEmail = (email: string): boolean => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+
+  const validatePhone = (phone: string): boolean => {
+    // Allow empty phone (it's optional) or validate if provided
+    if (!phone) return true;
+    const phoneRegex = /^[+]?[(]?[0-9]{1,4}[)]?[-\s.]?[0-9]{1,4}[-\s.]?[0-9]{1,9}$/;
+    return phoneRegex.test(phone);
+  };
+
+  const sanitizeInput = (input: string): string => {
+    // Basic sanitization - remove script tags and HTML
+    return input
+      .replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '')
+      .replace(/<[^>]*>/g, '')
+      .trim();
   };
   
   const handleSubmit = async (e: React.FormEvent) => {
@@ -35,32 +89,57 @@ const Contact = () => {
     setFormError(null);
     setFormSuccess(null);
     
+    // Check rate limiting first
+    if (isRateLimited) {
+      setFormError("Maximum submission limit reached. Please try again later.");
+      setIsSubmitting(false);
+      return;
+    }
+    
+    // Validate inputs
+    if (!validateEmail(formData.email)) {
+      setFormError("Please enter a valid email address");
+      setIsSubmitting(false);
+      return;
+    }
+    
+    if (!validatePhone(formData.phone)) {
+      setFormError("Please enter a valid phone number or leave it blank");
+      setIsSubmitting(false);
+      return;
+    }
+    
     try {
       const config = getEmailJSConfig();
       
       // Validate the EmailJS config
       if (!config.serviceId || !config.templateId || !config.userId) {
-        throw new Error("EmailJS configuration is incomplete. Please set up your EmailJS credentials.");
+        throw new Error("EmailJS configuration is incomplete. Please contact support.");
       }
+      
+      // Sanitize all inputs
+      const sanitizedData = {
+        name: sanitizeInput(formData.name),
+        email: formData.email.trim().toLowerCase(), // Email needs special handling
+        company: sanitizeInput(formData.company),
+        phone: sanitizeInput(formData.phone),
+        subject: sanitizeInput(formData.subject),
+        message: sanitizeInput(formData.message),
+      };
       
       // Create template params
       const templateParams = {
         to_email: config.destinationEmail,
-        from_name: formData.name,
-        company_name: formData.company || "Not provided",
-        from_email: formData.email,
-        phone: formData.phone || "Not provided",
-        subject: formData.subject,
-        message: formData.message
+        from_name: sanitizedData.name,
+        company_name: sanitizedData.company || "Not provided",
+        from_email: sanitizedData.email,
+        phone: sanitizedData.phone || "Not provided",
+        subject: sanitizedData.subject,
+        message: sanitizedData.message
       };
 
       console.log("Sending email with params:", templateParams);
-      console.log("Using EmailJS config:", {
-        serviceId: config.serviceId,
-        templateId: config.templateId,
-        userId: "HIDDEN" // Don't log the actual userId for security
-      });
-
+      
       // Send email through EmailJS
       await emailjs.send(
         config.serviceId,
@@ -68,6 +147,9 @@ const Contact = () => {
         templateParams,
         config.userId
       );
+      
+      // Update submission history for rate limiting
+      updateSubmissionHistory();
       
       setFormSuccess("Thank you for your message. We'll get back to you soon!");
       
@@ -183,6 +265,14 @@ const Contact = () => {
                 </Alert>
               )}
               
+              {isRateLimited && (
+                <Alert variant="warning" className="mb-6">
+                  <ShieldAlert className="h-4 w-4" />
+                  <AlertTitle>Rate Limit Reached</AlertTitle>
+                  <AlertDescription>You've reached the maximum number of form submissions. Please try again later.</AlertDescription>
+                </Alert>
+              )}
+              
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="space-y-2">
@@ -193,6 +283,7 @@ const Contact = () => {
                       id="name"
                       placeholder="Enter your name"
                       required
+                      maxLength={100}
                       value={formData.name}
                       onChange={handleChange}
                     />
@@ -207,6 +298,7 @@ const Contact = () => {
                       type="email"
                       placeholder="Enter your email"
                       required
+                      maxLength={100}
                       value={formData.email}
                       onChange={handleChange}
                     />
@@ -219,6 +311,7 @@ const Contact = () => {
                     <Input 
                       id="company"
                       placeholder="Enter your company name"
+                      maxLength={100}
                       value={formData.company}
                       onChange={handleChange}
                     />
@@ -231,6 +324,7 @@ const Contact = () => {
                     <Input 
                       id="phone"
                       placeholder="Enter your phone number"
+                      maxLength={20}
                       value={formData.phone}
                       onChange={handleChange}
                     />
@@ -245,6 +339,7 @@ const Contact = () => {
                     id="subject"
                     placeholder="What is this regarding?"
                     required
+                    maxLength={200}
                     value={formData.subject}
                     onChange={handleChange}
                   />
@@ -259,6 +354,7 @@ const Contact = () => {
                     placeholder="How can we help you?"
                     rows={6}
                     required
+                    maxLength={2000}
                     value={formData.message}
                     onChange={handleChange}
                   />
@@ -268,7 +364,7 @@ const Contact = () => {
                   type="submit" 
                   className="bg-sai-red hover:bg-sai-red/90 w-full"
                   size="lg"
-                  disabled={isSubmitting}
+                  disabled={isSubmitting || isRateLimited}
                 >
                   {isSubmitting ? "Sending..." : "Send Message"}
                 </Button>

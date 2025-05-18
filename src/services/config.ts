@@ -16,9 +16,17 @@ interface EmailJSConfig {
 // This is a temporary solution for demonstration purposes
 const emailjsConfig: EmailJSConfig = {
   serviceId: "service_ojp5c5c", // EmailJS service ID
-  templateId: "template_819dbfe", // EmailJS template ID
+  templateId: "template_819dbfe", // EmailJS template ID for contact form
   userId: "MgW2Yqf153jnf67MP", // EmailJS user ID (public key)
   destinationEmail: "charen.k@gmail.com", // Keep the destination email
+};
+
+// Quote form specific EmailJS configuration
+const quoteEmailjsConfig: EmailJSConfig = {
+  serviceId: "service_ojp5c5c", // Same EmailJS service ID
+  templateId: "template_tyijfev", // New EmailJS template ID for quote form
+  userId: "MgW2Yqf153jnf67MP", // Same EmailJS user ID (public key)
+  destinationEmail: "charen.k@gmail.com", // Same destination email
 };
 
 // Method to get EmailJS config without exposing it directly in the component
@@ -29,6 +37,17 @@ export const getEmailJSConfig = (): EmailJSConfig => {
     templateId: emailjsConfig.templateId,
     userId: emailjsConfig.userId,
     destinationEmail: emailjsConfig.destinationEmail,
+  };
+};
+
+// Method to get Quote form EmailJS config
+export const getQuoteEmailJSConfig = (): EmailJSConfig => {
+  // Basic obfuscation - in production, use server-side environment variables
+  return {
+    serviceId: quoteEmailjsConfig.serviceId,
+    templateId: quoteEmailjsConfig.templateId,
+    userId: quoteEmailjsConfig.userId,
+    destinationEmail: quoteEmailjsConfig.destinationEmail,
   };
 };
 

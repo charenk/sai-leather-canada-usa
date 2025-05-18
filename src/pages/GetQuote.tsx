@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
@@ -15,10 +15,49 @@ import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group';
 import { Upload, Check, ShieldCheck, Clock, CalendarCheck, Shield, Lock, CalendarDays } from 'lucide-react';
 import emailjs from 'emailjs-com';
 import { FileInput } from '@/components/ui/file-input';
-import { getEmailJSConfig, MAX_UPLOAD_SIZE_MB, ALLOWED_FILE_TYPES, ALLOWED_FILE_EXTENSIONS } from '@/services/config';
+import { 
+  getQuoteEmailJSConfig, 
+  MAX_UPLOAD_SIZE_MB, 
+  ALLOWED_FILE_TYPES, 
+  ALLOWED_FILE_EXTENSIONS,
+  SUBMISSION_LIMIT,
+  SUBMISSION_TIMEFRAME_MS
+} from '@/services/config';
 
 // Maximum file size for uploads (in MB)
 const MAX_FILE_SIZE = MAX_UPLOAD_SIZE_MB * 1024 * 1024; // 10MB
+
+// Rate limiting implementation
+const checkRateLimit = (): boolean => {
+  const now = new Date().getTime();
+  const submissions = JSON.parse(localStorage.getItem('quoteSubmissions') || '[]');
+  
+  // Filter out old submissions outside the timeframe
+  const recentSubmissions = submissions.filter(
+    (timestamp: number) => now - timestamp < SUBMISSION_TIMEFRAME_MS
+  );
+  
+  // Check if we've reached the limit
+  if (recentSubmissions.length >= SUBMISSION_LIMIT) {
+    return false; // Rate limited
+  }
+  
+  // Store the submission time
+  localStorage.setItem('quoteSubmissions', JSON.stringify([...recentSubmissions, now]));
+  return true; // Not rate limited
+};
+
+// Sanitize input to prevent XSS
+const sanitizeInput = (input: string): string => {
+  if (!input) return '';
+  return input
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;')
+    .replace(/`/g, '&#96;')
+    .replace(/\//g, '&#47;');
+};
 
 // Zod form schema with file validation
 const formSchema = z.object({
@@ -110,7 +149,19 @@ const GetQuote = () => {
     setIsLoading(true);
     
     try {
-      const config = getEmailJSConfig();
+      // Check rate limiting first
+      if (!checkRateLimit()) {
+        toast({
+          title: "Submission limit reached",
+          description: "You've made too many requests. Please try again later.",
+          variant: "destructive",
+        });
+        setIsLoading(false);
+        return;
+      }
+      
+      // Get the quote-specific EmailJS config
+      const config = getQuoteEmailJSConfig();
       
       let fileData = null;
       if (selectedFile) {
@@ -128,23 +179,40 @@ const GetQuote = () => {
         }
       }
       
+      // Sanitize inputs before sending
+      const sanitizedData = {
+        fullName: sanitizeInput(data.fullName),
+        companyName: sanitizeInput(data.companyName),
+        email: sanitizeInput(data.email),
+        phone: sanitizeInput(data.phone || ''),
+        country: sanitizeInput(data.country),
+        productType: sanitizeInput(data.productType),
+        leatherType: sanitizeInput(data.leatherType),
+        finishType: sanitizeInput(data.finishType),
+        quantity: sanitizeInput(data.quantity),
+        targetPrice: sanitizeInput(data.targetPrice || ''),
+        timeline: sanitizeInput(data.timeline),
+        additionalInfo: sanitizeInput(data.additionalInfo || ''),
+        shippingAddress: sanitizeInput(data.shippingAddress || ''),
+      };
+      
       // Create template params
       const templateParams = {
         to_email: config.destinationEmail, // This will use the updated email from config
-        from_name: data.fullName,
-        company_name: data.companyName,
-        from_email: data.email,
-        phone: data.phone || "Not provided",
-        country: data.country,
-        product_type: data.productType,
-        leather_type: data.leatherType,
-        finish_type: data.finishType,
-        quantity: data.quantity,
-        target_price: data.targetPrice || "Not specified",
-        timeline: data.timeline,
-        additional_info: data.additionalInfo || "None",
+        from_name: sanitizedData.fullName,
+        company_name: sanitizedData.companyName,
+        from_email: sanitizedData.email,
+        phone: sanitizedData.phone || "Not provided",
+        country: sanitizedData.country,
+        product_type: sanitizedData.productType,
+        leather_type: sanitizedData.leatherType,
+        finish_type: sanitizedData.finishType,
+        quantity: sanitizedData.quantity,
+        target_price: sanitizedData.targetPrice || "Not specified",
+        timeline: sanitizedData.timeline,
+        additional_info: sanitizedData.additionalInfo || "None",
         request_sample: data.requestSample ? "Yes" : "No",
-        shipping_address: data.shippingAddress || "Not provided",
+        shipping_address: sanitizedData.shippingAddress || "Not provided",
         request_nda: data.requestNDA ? "Yes" : "No",
         file_attachment: fileData,
         file_name: selectedFile ? selectedFile.name : "No file attached"

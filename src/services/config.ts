@@ -52,7 +52,7 @@ export const getQuoteEmailJSConfig = (): EmailJSConfig => {
 };
 
 // Constants for security settings
-export const MAX_UPLOAD_SIZE_MB = 10;
+export const MAX_UPLOAD_SIZE_MB = 5; // Reduced from 10MB to 5MB
 export const ALLOWED_FILE_TYPES = [
   "application/pdf",
   "image/png",

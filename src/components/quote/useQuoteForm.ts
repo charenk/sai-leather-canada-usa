@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -38,7 +37,7 @@ export const useQuoteForm = () => {
   });
 
   // Maximum file size for uploads (in MB)
-  const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB
+  const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB - reduced from 10MB due to EmailJS limit
 
   // Rate limiting implementation
   const checkRateLimit = (): boolean => {
@@ -80,7 +79,7 @@ export const useQuoteForm = () => {
       const file = files[0];
       
       if (file.size > MAX_FILE_SIZE) {
-        setFileError(`File is too large. Maximum size is 10MB.`);
+        setFileError(`File is too large. Maximum size is 5MB.`);
         setSelectedFile(null);
         return;
       }
@@ -101,6 +100,79 @@ export const useQuoteForm = () => {
       
       setSelectedFile(file);
     }
+  };
+  
+  // Optimized base64 encoding with resizing for images
+  const processFileForEmailJS = async (file: File): Promise<string | null> => {
+    try {
+      // For images, resize them to reduce size
+      if (file.type.startsWith('image/')) {
+        return await resizeAndConvertImageToBase64(file);
+      } 
+      
+      // For other files that are small enough
+      if (file.size <= MAX_FILE_SIZE) {
+        return await readFileAsBase64(file);
+      }
+      
+      // File is too large
+      setFileError(`File is too large for submission. Maximum size is 5MB.`);
+      return null;
+    } catch (error) {
+      console.error("Error processing file:", error);
+      return null;
+    }
+  };
+  
+  // Resize images before converting to base64
+  const resizeAndConvertImageToBase64 = (file: File): Promise<string> => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        const img = new Image();
+        img.onload = () => {
+          // Calculate new dimensions (max 800px width/height)
+          let width = img.width;
+          let height = img.height;
+          const MAX_DIMENSION = 800;
+          
+          if (width > height && width > MAX_DIMENSION) {
+            height = (height * MAX_DIMENSION) / width;
+            width = MAX_DIMENSION;
+          } else if (height > MAX_DIMENSION) {
+            width = (width * MAX_DIMENSION) / height;
+            height = MAX_DIMENSION;
+          }
+          
+          // Create canvas and resize
+          const canvas = document.createElement('canvas');
+          canvas.width = width;
+          canvas.height = height;
+          
+          const ctx = canvas.getContext('2d');
+          if (!ctx) {
+            reject(new Error('Could not get canvas context'));
+            return;
+          }
+          
+          ctx.drawImage(img, 0, 0, width, height);
+          
+          // Get reduced quality base64
+          const quality = 0.7; // 70% quality
+          const base64 = canvas.toDataURL(file.type, quality);
+          resolve(base64);
+        };
+        
+        img.onerror = (error) => reject(error);
+        if (event.target?.result) {
+          img.src = event.target.result as string;
+        } else {
+          reject(new Error('Failed to load image'));
+        }
+      };
+      reader.onerror = (error) => reject(error);
+      reader.readAsDataURL(file);
+    });
   };
   
   const readFileAsBase64 = (file: File): Promise<string> => {
@@ -133,9 +205,18 @@ export const useQuoteForm = () => {
       let fileData = null;
       if (selectedFile) {
         try {
-          fileData = await readFileAsBase64(selectedFile);
+          fileData = await processFileForEmailJS(selectedFile);
+          if (!fileData) {
+            toast({
+              title: "File processing error",
+              description: "The file is too large. Please reduce the file size or try a different file (max 5MB).",
+              variant: "destructive",
+            });
+            setIsLoading(false);
+            return;
+          }
         } catch (error) {
-          console.error("Error reading file:", error);
+          console.error("Error processing file:", error);
           toast({
             title: "File processing error",
             description: "There was a problem processing your file. Please try again with a different file.",

@@ -129,6 +129,114 @@ const Index = () => {
         </div>
       </section>
       
+      {/* Products Preview Section */}
+      <section className="py-16">
+        <div className="section-container">
+          <SectionHeading 
+            title="Our Leather Products" 
+            subtitle="We specialize in crafting premium leather garments with superior quality, customization options, and attention to detail."
+            alignment="center"
+          />
+          
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-12">
+            {[
+              {
+                title: "Leather Jackets",
+                image: "https://images.unsplash.com/photo-1551028719-00167b16eac5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80"
+              },
+              {
+                title: "Leather Bags",
+                image: "https://images.unsplash.com/photo-1590874103328-eac38a683ce7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80"
+              },
+              {
+                title: "Leather Accessories",
+                image: "https://images.unsplash.com/photo-1564422167499-21d6bcd30fbd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80"
+              }
+            ].map((product, index) => (
+              <div key={index} className="group relative overflow-hidden rounded-xl shadow-md animate-on-scroll">
+                <img 
+                  src={product.image} 
+                  alt={product.title} 
+                  className="w-full h-80 object-cover transition-transform duration-500 group-hover:scale-110" 
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end">
+                  <div className="p-6 w-full">
+                    <h3 className="text-xl font-bold text-white">{product.title}</h3>
+                    <Button 
+                      variant="link" 
+                      asChild 
+                      className="text-white p-0 flex items-center mt-2 hover:text-sai-coral"
+                    >
+                      <Link to="/products">
+                        View Collection <ArrowRight className="ml-2 h-4 w-4" />
+                      </Link>
+                    </Button>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+          
+          <div className="flex justify-center mt-12">
+            <Button asChild size="lg">
+              <Link to="/products">
+                View All Products
+              </Link>
+            </Button>
+          </div>
+        </div>
+      </section>
+      
+      {/* Services Section */}
+      <section className="py-16 bg-gradient-to-br from-sai-navy to-sai-navy/90 text-white">
+        <div className="section-container">
+          <SectionHeading 
+            title="Our OEM Services" 
+            subtitle="From concept to creation, we provide end-to-end manufacturing solutions for premium leather garments."
+            alignment="center"
+            className="text-white"
+            subtitleClassName="text-white/80"
+          />
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-12">
+            {[
+              {
+                title: "Custom Design",
+                description: "From concept sketches to finished products, our design team works closely with clients to bring their vision to life."
+              },
+              {
+                title: "Material Sourcing",
+                description: "We source the highest quality leather and materials from ethical suppliers to ensure premium final products."
+              },
+              {
+                title: "Production",
+                description: "Our skilled artisans combine traditional craftsmanship with modern techniques to create exceptional garments."
+              },
+              {
+                title: "Quality Control",
+                description: "Rigorous quality control at every stage ensures that every piece meets our high standards."
+              },
+              {
+                title: "Packaging & Shipping",
+                description: "Custom packaging solutions and reliable shipping to destinations across North America and Europe."
+              },
+              {
+                title: "After-Sales Support",
+                description: "Dedicated customer service to ensure satisfaction with every order and address any concerns."
+              }
+            ].map((service, index) => (
+              <div 
+                key={index} 
+                className="bg-white/10 backdrop-filter backdrop-blur-sm rounded-xl p-6 hover:bg-white/20 transition-colors animate-on-scroll"
+              >
+                <h3 className="text-xl font-bold mb-3">{service.title}</h3>
+                <p className="text-white/80">{service.description}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+      
       {/* CTA Section */}
       <section className="py-20 bg-sai-red/10">
         <div className="section-container text-center">

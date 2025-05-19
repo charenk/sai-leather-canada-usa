@@ -11,7 +11,7 @@ const Products = () => {
       name: "Leather Jackets",
       description: "Premium quality jackets crafted with the finest leather",
       products: [
-        { name: "Classic Biker Jacket", image: "https://images.unsplash.com/photo-1551028719-00167b16eac5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" },
+        { name: "Classic Biker Jacket", image: "/lovable-uploads/3bbec8a1-8659-4ca6-a4e0-d53062aaf34d.png" },
         { name: "Bomber Jacket", image: "https://images.unsplash.com/photo-1580411468398-fbbadf8b9a32?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" },
         { name: "Aviator Jacket", image: "https://images.unsplash.com/photo-1608063615781-e2ef8c73d114?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" },
       ]

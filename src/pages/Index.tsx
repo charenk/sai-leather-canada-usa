@@ -57,11 +57,22 @@ const Index = () => {
       
       {/* Client logos section removed */}
       
-      {/* About Section */}
+      {/* About Section - Updated to switch positions of content */}
       <section className="py-16 bg-gray-50">
         <div className="section-container">
           <div className="flex flex-col md:flex-row gap-12 items-center">
-            <div className="w-full md:w-1/2 animate-on-scroll">
+            {/* Stats now on the left */}
+            <div className="w-full md:w-1/2 space-y-6 animate-on-scroll order-2 md:order-1">
+              <div className="grid grid-cols-2 gap-6">
+                <StatCard value="15+" label="Years Experience" color="red" />
+                <StatCard value="200+" label="Skilled Artisans" color="blue" />
+                <StatCard value="500K+" label="Units Produced" color="coral" />
+                <StatCard value="50+" label="Brand Partners" color="lavender" />
+              </div>
+            </div>
+            
+            {/* Content now on the right */}
+            <div className="w-full md:w-1/2 animate-on-scroll order-1 md:order-2">
               <SectionHeading title="From European Excellence to North American Markets" />
               <p className="mb-6 text-gray-600">
                 Sai International specializes in OEM manufacturing of high-quality leather garments, combining traditional craftsmanship with modern production techniques. Our commitment to quality, ethical production practices, and customized solutions has made us a preferred partner for premium brands across Europe.
@@ -71,15 +82,6 @@ const Index = () => {
                   Learn More About Us <ArrowRight className="ml-2 h-4 w-4" />
                 </Link>
               </Button>
-            </div>
-            
-            <div className="w-full md:w-1/2 space-y-6 animate-on-scroll">
-              <div className="grid grid-cols-2 gap-6">
-                <StatCard value="15+" label="Years Experience" color="red" />
-                <StatCard value="200+" label="Skilled Artisans" color="blue" />
-                <StatCard value="500K+" label="Units Produced" color="coral" />
-                <StatCard value="50+" label="Brand Partners" color="lavender" />
-              </div>
             </div>
           </div>
         </div>

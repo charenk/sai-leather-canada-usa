@@ -72,7 +72,7 @@ const Index = () => {
             
             {/* Content now on the right */}
             <div className="w-full md:w-1/2 animate-on-scroll order-1 md:order-2">
-              <SectionHeading title="From European Excellence to North American Markets" />
+              <SectionHeading title="Heritage Craftsmanship. Modern Elegance." />
               <p className="mb-6 text-gray-600">
                 Sai International provides dependable OEM manufacturing for leather garments at scale. With 15+ years of industry experience, skilled artisans, and a proven track record serving top European brands, we deliver consistent quality, ethical production, and on-time delivery — customized to your brand's needs.
               </p>

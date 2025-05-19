@@ -30,7 +30,7 @@ const Index = () => {
     });
     return () => observer.disconnect();
   }, []);
-  return <main className="pb-16">
+  return <main>
       {/* Hero Section */}
       <section className="pt-28 pb-20 md:pt-40 md:pb-24 relative bg-gradient-to-br from-sai-blue/40 to-white">
         <div className="section-container flex flex-col md:flex-row items-center">
@@ -143,8 +143,8 @@ const Index = () => {
         </div>
       </section>
       
-      {/* CTA Section */}
-      <section className="py-20 bg-sai-red/10">
+      {/* CTA Section - Remove bottom padding to eliminate the white space */}
+      <section className="py-20 bg-sai-red/10 mb-0">
         <div className="section-container text-center">
           <h2 className="text-3xl md:text-4xl font-display font-bold text-sai-navy mb-6">
             Ready to explore opportunities in North America?

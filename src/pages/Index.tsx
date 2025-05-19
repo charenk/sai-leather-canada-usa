@@ -60,8 +60,8 @@ const Index = () => {
           
           <div className="w-full md:w-1/2 pl-0 md:pl-10">
             <img 
-              src="/lovable-uploads/fc1a87d2-2fb6-4c8b-82be-c559739a000f.png" 
-              alt="Collection of premium leather jackets in various colors" 
+              src="/lovable-uploads/2511fc82-3bbf-40f1-8e0d-3f5c678b8ecc.png" 
+              alt="Collection of colorful leather jackets on a clothing rack" 
               className="rounded-lg shadow-xl w-full h-auto object-cover aspect-[4/3]" 
             />
           </div>

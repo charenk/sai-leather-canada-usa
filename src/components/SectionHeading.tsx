@@ -18,7 +18,7 @@ const SectionHeading = ({
     'text-center': alignment === 'center',
     'text-right': alignment === 'right'
   }, className)}>
-      <h2 className="text-3xl md:text-4xl font-semibold tracking-tight text-slate-50 inverted ">
+      <h2 className="text-3xl md:text-4xl font-semibold tracking-tight inverted text-zinc-700">
         {title}
       </h2>
       {subtitle && <p className={cn("mt-4 text-gray-700 max-w-3xl text-lg", {

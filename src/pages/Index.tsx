@@ -1,4 +1,3 @@
-
 import React, { useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { ArrowRight } from 'lucide-react';
@@ -145,7 +144,7 @@ const Index = () => {
               },
               {
                 title: "Leather Bags",
-                image: "https://images.unsplash.com/photo-1590874103328-eac38a683ce7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80"
+                image: "/lovable-uploads/0c6d4a38-8187-417f-9faa-5e32816d8e29.png"
               },
               {
                 title: "Leather Accessories",

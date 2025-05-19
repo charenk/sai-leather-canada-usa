@@ -22,7 +22,7 @@ const Products = () => {
       products: [
         { name: "Crossbody Bag", image: "/lovable-uploads/ae49afcf-ce95-4b1c-a96b-6a8f53318c18.png" },
         { name: "Backpack", image: "/lovable-uploads/01ad3cd8-013f-41ed-b44d-935400579892.png" },
-        { name: "Tote Bag", image: "https://images.unsplash.com/photo-1511497584788-876760111969?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" },
+        { name: "Tote Bag", image: "/lovable-uploads/26e173b7-12cc-4b67-b142-b7821a6d757a.png" },
       ]
     },
     {

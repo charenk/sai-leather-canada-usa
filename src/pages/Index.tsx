@@ -149,7 +149,7 @@ const Index = () => {
               },
               {
                 title: "Leather Accessories",
-                image: "https://images.unsplash.com/photo-1564422167499-21d6bcd30fbd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80"
+                image: "/lovable-uploads/5e2cec59-2229-41a3-ae41-d3d650701b1d.png"
               }
             ].map((product, index) => (
               <div key={index} className="group relative overflow-hidden rounded-xl shadow-md animate-on-scroll">

@@ -48,7 +48,6 @@ const GetQuote = () => {
         {/* Hero Section */}
         <div className="text-center max-w-3xl mx-auto mb-12">
           <SectionHeading
-            subtitle="Request a Quote"
             title="Get a Personalized Quote"
           />
           <p className="text-lg text-gray-600">

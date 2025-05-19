@@ -3,16 +3,10 @@ import React, { useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { ArrowRight } from 'lucide-react';
 import SectionHeading from '@/components/SectionHeading';
-import ClientLogo from '@/components/ClientLogo';
 import StatCard from '@/components/StatCard';
 import { Link } from 'react-router-dom';
 
-// Import logo assets directly
-import gerardDarelLogo from '@/assets/logos/gerard-darel.png';
-import carollLogo from '@/assets/logos/caroll.png';
-import maison123Logo from '@/assets/logos/maison123.png';
-import burberryLogo from '@/assets/logos/burberry.png';
-import emporioArmaniLogo from '@/assets/logos/emporio-armani.png';
+// Remove client logo imports as they're no longer needed
 const Index = () => {
   useEffect(() => {
     // Animation on scroll
@@ -61,19 +55,7 @@ const Index = () => {
         </div>
       </section>
       
-      {/* Clients Section */}
-      <section className="py-16">
-        <div className="section-container">
-          <p className="text-center text-gray-600 mb-10">Trusted by leading brands across Europe</p>
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
-            <ClientLogo name="Gerard Darel" logoSrc={gerardDarelLogo} />
-            <ClientLogo name="Caroll Paris" logoSrc={carollLogo} />
-            <ClientLogo name="Maison 123" logoSrc={maison123Logo} />
-            <ClientLogo name="Burberry" logoSrc={burberryLogo} />
-            <ClientLogo name="Emporio Armani" logoSrc={emporioArmaniLogo} />
-          </div>
-        </div>
-      </section>
+      {/* Client logos section removed */}
       
       {/* About Section */}
       <section className="py-16 bg-gray-50">

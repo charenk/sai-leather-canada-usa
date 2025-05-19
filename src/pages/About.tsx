@@ -1,4 +1,3 @@
-
 import React, { useEffect } from 'react';
 import SectionHeading from '@/components/SectionHeading';
 
@@ -30,14 +29,6 @@ const About = () => {
             subtitle="From our humble beginnings to becoming a preferred OEM partner for premium European brands."
             alignment="center"
           />
-          
-          <div className="mt-12 relative">
-            <img 
-              src="https://images.unsplash.com/photo-1530893609608-32a9af3aa95c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1600&q=80" 
-              alt="Leather workshop" 
-              className="w-full h-[400px] object-cover rounded-xl" 
-            />
-          </div>
         </div>
       </section>
       

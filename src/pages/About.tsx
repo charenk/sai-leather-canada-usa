@@ -1,10 +1,11 @@
+
 import React, { useEffect } from 'react';
 import SectionHeading from '@/components/SectionHeading';
 import { Card, CardContent } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
-import { Carousel, CarouselContent, CarouselItem, CarouselPrevious, CarouselNext } from '@/components/ui/carousel';
-import { ArrowRight, Calendar, Route } from 'lucide-react';
+import { ArrowRight, Calendar, Circle, Flag, Route, Star } from 'lucide-react';
 import StatCard from '@/components/StatCard';
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 
 const About = () => {
   useEffect(() => {
@@ -81,7 +82,7 @@ const About = () => {
         </div>
       </section>
       
-      {/* Timeline Section - Redesigned */}
+      {/* Timeline Section - New Vertical Design */}
       <section className="py-20 bg-gradient-to-b from-gray-50 to-white">
         <div className="section-container">
           <SectionHeading 
@@ -90,85 +91,104 @@ const About = () => {
             alignment="center"
           />
           
-          <div className="mt-16">
-            <Carousel className="w-full max-w-5xl mx-auto">
-              <CarouselContent>
-                {[
-                  {
-                    year: "2008",
-                    title: "Humble Beginnings",
-                    description: "Founded with 15 artisans, specializing in handcrafted leather goods in a small workshop in the industrial district.",
-                    color: "red"
-                  },
-                  {
-                    year: "2012",
-                    title: "European Partnership",
-                    description: "Secured our first major European brand partnership, marking our entry into OEM manufacturing for luxury fashion houses.",
-                    color: "coral"
-                  },
-                  {
-                    year: "2015",
-                    title: "Facility Expansion",
-                    description: "Expanded to a 25,000 sq ft state-of-the-art facility with advanced machinery and over 100 skilled artisans.",
-                    color: "blue"
-                  },
-                  {
-                    year: "2018",
-                    title: "Sustainability Initiative",
-                    description: "Launched our comprehensive sustainability program focusing on ethical sourcing, waste reduction, and eco-friendly production practices.",
-                    color: "lavender"
-                  },
-                  {
-                    year: "2023",
-                    title: "North American Expansion",
-                    description: "Beginning our strategic expansion into North American markets with dedicated sales, support, and distribution networks.",
-                    color: "red"
-                  }
-                ].map((milestone, index) => (
-                  <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3 h-full">
-                    <Card className="h-full border-none shadow-lg hover:shadow-xl transition-all duration-300">
-                      <CardContent className="p-6 h-full flex flex-col">
-                        <div className="flex items-center gap-2 mb-4">
-                          <Calendar className="text-sai-red" />
-                          <span className="text-xl font-bold text-sai-navy">{milestone.year}</span>
+          <div className="mt-16 relative">
+            {/* Vertical line */}
+            <div className="absolute left-0 md:left-1/2 top-0 bottom-0 w-1 bg-gradient-to-b from-sai-red via-sai-coral to-sai-navy transform -translate-x-1/2 md:translate-x-0"></div>
+            
+            {/* Timeline events */}
+            <div className="space-y-24">
+              {[
+                {
+                  year: "2008",
+                  title: "Humble Beginnings",
+                  description: "Founded with 15 artisans, specializing in handcrafted leather goods in a small workshop in the industrial district.",
+                  color: "sai-red",
+                  icon: <Circle className="text-sai-red" />,
+                  side: "right"
+                },
+                {
+                  year: "2012",
+                  title: "European Partnership",
+                  description: "Secured our first major European brand partnership, marking our entry into OEM manufacturing for luxury fashion houses.",
+                  color: "sai-coral",
+                  icon: <Flag className="text-sai-coral" />,
+                  side: "left"
+                },
+                {
+                  year: "2015",
+                  title: "Facility Expansion",
+                  description: "Expanded to a 25,000 sq ft state-of-the-art facility with advanced machinery and over 100 skilled artisans.",
+                  color: "sai-blue",
+                  icon: <Star className="text-sai-blue" />,
+                  side: "right"
+                },
+                {
+                  year: "2018",
+                  title: "Sustainability Initiative",
+                  description: "Launched our comprehensive sustainability program focusing on ethical sourcing, waste reduction, and eco-friendly production practices.",
+                  color: "sai-navy",
+                  icon: <Circle className="text-sai-navy" />,
+                  side: "left"
+                },
+                {
+                  year: "2023",
+                  title: "North American Expansion",
+                  description: "Beginning our strategic expansion into North American markets with dedicated sales, support, and distribution networks.",
+                  color: "sai-red",
+                  icon: <Flag className="text-sai-red" />,
+                  side: "right"
+                }
+              ].map((milestone, index) => (
+                <div key={index} className="relative animate-on-scroll">
+                  {/* Timeline dot */}
+                  <div className={`absolute left-0 md:left-1/2 w-6 h-6 rounded-full bg-white border-4 border-${milestone.color} transform -translate-x-1/2 flex items-center justify-center`}>
+                    {milestone.icon}
+                  </div>
+                  
+                  {/* Content card */}
+                  <div className={`ml-10 md:ml-0 md:w-5/12 ${milestone.side === "left" ? "md:pr-12 md:mr-auto" : "md:pl-12 md:ml-auto"}`}>
+                    <Card className={`border-l-4 border-${milestone.color} shadow-lg hover:shadow-xl transition-all duration-300 animate-on-scroll`}>
+                      <CardContent className="p-6">
+                        <div className="flex items-center gap-2 mb-2">
+                          <Calendar className={`text-${milestone.color}`} />
+                          <span className="text-xl font-bold">{milestone.year}</span>
                         </div>
-                        <h3 className="text-xl font-bold mb-3 text-sai-navy">{milestone.title}</h3>
-                        <p className="text-gray-600 mb-4 flex-grow">{milestone.description}</p>
-                        <div className="w-16 h-1 bg-sai-red rounded-full mt-auto"></div>
+                        <h3 className="text-xl font-bold mb-3">{milestone.title}</h3>
+                        <p className="text-gray-600">{milestone.description}</p>
                       </CardContent>
                     </Card>
-                  </CarouselItem>
-                ))}
-              </CarouselContent>
-              <CarouselPrevious className="left-0" />
-              <CarouselNext className="right-0" />
-            </Carousel>
-          </div>
-          
-          <div className="mt-24 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <StatCard value="15+" label="Years of Experience" color="red" className="shadow-lg" />
-            <StatCard value="200+" label="Skilled Artisans" color="coral" className="shadow-lg" />
-            <StatCard value="10+" label="European Partnerships" color="blue" className="shadow-lg" />
-            <StatCard value="50K+" label="Products per Year" color="lavender" className="shadow-lg" />
-          </div>
-          
-          <div className="mt-20 flex flex-col md:flex-row items-center justify-center gap-8 bg-gray-50 p-8 rounded-xl shadow-sm animate-on-scroll">
-            <div className="flex items-center justify-center w-16 h-16 bg-sai-red/10 rounded-full">
-              <Route className="w-8 h-8 text-sai-red" />
+                  </div>
+                </div>
+              ))}
             </div>
-            <div className="text-center md:text-left">
-              <h3 className="text-2xl font-bold text-sai-navy mb-2">The Road Ahead</h3>
-              <p className="text-gray-700 max-w-2xl">
-                As we continue our journey, we remain committed to craftsmanship excellence, 
-                sustainable practices, and expanding our global footprint while preserving 
-                the artisanal quality that has defined our success.
-              </p>
+          </div>
+          
+          <div className="mt-32 bg-white rounded-2xl shadow-xl p-8 animate-on-scroll">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+              <StatCard value="15+" label="Years of Experience" color="red" className="hover:shadow-lg transform hover:scale-105 transition-all duration-300" />
+              <StatCard value="200+" label="Skilled Artisans" color="coral" className="hover:shadow-lg transform hover:scale-105 transition-all duration-300" />
+              <StatCard value="10+" label="European Partnerships" color="blue" className="hover:shadow-lg transform hover:scale-105 transition-all duration-300" />
+              <StatCard value="50K+" label="Products per Year" color="lavender" className="hover:shadow-lg transform hover:scale-105 transition-all duration-300" />
+            </div>
+            
+            <div className="mt-12 flex flex-col md:flex-row items-center justify-center gap-8 p-6 rounded-xl bg-gradient-to-r from-gray-50 to-white animate-on-scroll">
+              <div className="flex items-center justify-center w-16 h-16 bg-sai-red/10 rounded-full">
+                <Route className="w-8 h-8 text-sai-red" />
+              </div>
+              <div className="text-center md:text-left">
+                <h3 className="text-2xl font-bold text-sai-navy mb-2">The Road Ahead</h3>
+                <p className="text-gray-700 max-w-2xl">
+                  As we continue our journey, we remain committed to craftsmanship excellence, 
+                  sustainable practices, and expanding our global footprint while preserving 
+                  the artisanal quality that has defined our success.
+                </p>
+              </div>
             </div>
           </div>
         </div>
       </section>
       
-      {/* Values Section */}
+      {/* Values Section - Accordion Style */}
       <section className="py-16">
         <div className="section-container">
           <SectionHeading 
@@ -177,41 +197,44 @@ const About = () => {
             alignment="center"
           />
           
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-12">
-            {[
-              {
-                value: "Excellence",
-                description: "We strive for excellence in every stitch, seam, and finished product."
-              },
-              {
-                value: "Integrity",
-                description: "We conduct our business with honesty, transparency, and ethical practices."
-              },
-              {
-                value: "Innovation",
-                description: "We continuously explore new techniques and materials while respecting traditional craftsmanship."
-              },
-              {
-                value: "Sustainability",
-                description: "We are committed to environmentally responsible practices throughout our production process."
-              },
-              {
-                value: "Partnership",
-                description: "We build lasting relationships with our clients based on mutual respect and collaboration."
-              },
-              {
-                value: "Empowerment",
-                description: "We invest in our people, providing opportunities for growth and development."
-              }
-            ].map((item, index) => (
-              <div 
-                key={index} 
-                className="bg-white rounded-xl p-8 shadow-md border border-gray-100 text-center animate-on-scroll"
-              >
-                <h3 className="text-xl font-bold text-sai-navy mb-4">{item.value}</h3>
-                <p className="text-gray-600">{item.description}</p>
-              </div>
-            ))}
+          <div className="max-w-3xl mx-auto mt-12 animate-on-scroll">
+            <Accordion type="single" collapsible className="w-full">
+              {[
+                {
+                  value: "Excellence",
+                  description: "We strive for excellence in every stitch, seam, and finished product."
+                },
+                {
+                  value: "Integrity",
+                  description: "We conduct our business with honesty, transparency, and ethical practices."
+                },
+                {
+                  value: "Innovation",
+                  description: "We continuously explore new techniques and materials while respecting traditional craftsmanship."
+                },
+                {
+                  value: "Sustainability",
+                  description: "We are committed to environmentally responsible practices throughout our production process."
+                },
+                {
+                  value: "Partnership",
+                  description: "We build lasting relationships with our clients based on mutual respect and collaboration."
+                },
+                {
+                  value: "Empowerment",
+                  description: "We invest in our people, providing opportunities for growth and development."
+                }
+              ].map((item, index) => (
+                <AccordionItem key={index} value={`item-${index}`} className="border border-gray-200 rounded-lg mb-4 overflow-hidden">
+                  <AccordionTrigger className="px-6 py-4 hover:bg-gray-50 font-bold text-sai-navy">
+                    {item.value}
+                  </AccordionTrigger>
+                  <AccordionContent className="px-6 pb-4 text-gray-600">
+                    {item.description}
+                  </AccordionContent>
+                </AccordionItem>
+              ))}
+            </Accordion>
           </div>
         </div>
       </section>

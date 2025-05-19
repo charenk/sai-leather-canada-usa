@@ -89,7 +89,6 @@ const Index = () => {
             <div className="w-full md:w-1/2 animate-on-scroll">
               <SectionHeading 
                 title="From European Excellence to North American Markets" 
-                subtitle="With 15 years of experience serving European brands, we're expanding our premium leather manufacturing expertise to North America."
               />
               <p className="mb-6 text-gray-600">
                 Sai International specializes in OEM manufacturing of high-quality leather garments, combining traditional craftsmanship with modern production techniques. Our commitment to quality, ethical production practices, and customized solutions has made us a preferred partner for premium brands across Europe.

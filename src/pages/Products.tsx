@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Button } from '@/components/ui/button';
 import SectionHeading from '@/components/SectionHeading';
@@ -13,7 +12,7 @@ const Products = () => {
       products: [
         { name: "Classic Biker Jacket", image: "/lovable-uploads/3bbec8a1-8659-4ca6-a4e0-d53062aaf34d.png" },
         { name: "Bomber Jacket", image: "/lovable-uploads/73b3308c-0cae-429f-aa5c-ea6143df14fc.png" },
-        { name: "Aviator Jacket", image: "https://images.unsplash.com/photo-1608063615781-e2ef8c73d114?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" },
+        { name: "Aviator Jacket", image: "/lovable-uploads/173f7d5f-cac1-4eb3-b679-90d68dac897a.png" },
       ]
     },
     {

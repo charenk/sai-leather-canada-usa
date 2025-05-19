@@ -34,24 +34,6 @@ const TrustSection: React.FC = () => {
           </p>
         </div>
       </div>
-      
-      <div className="mt-12 text-center">
-        <p className="text-lg font-medium text-sai-navy">Trusted by global fashion brands</p>
-        <div className="mt-6 grid grid-cols-2 md:grid-cols-4 gap-8">
-          <div className="flex items-center justify-center opacity-60 grayscale hover:grayscale-0 hover:opacity-100 transition-all">
-            <img src="/src/assets/logos/gerard-darel.png" alt="Gerard Darel" className="h-10 object-contain" />
-          </div>
-          <div className="flex items-center justify-center opacity-60 grayscale hover:grayscale-0 hover:opacity-100 transition-all">
-            <img src="/src/assets/logos/caroll.png" alt="Caroll" className="h-10 object-contain" />
-          </div>
-          <div className="flex items-center justify-center opacity-60 grayscale hover:grayscale-0 hover:opacity-100 transition-all">
-            <img src="/src/assets/logos/maison123.png" alt="Maison123" className="h-10 object-contain" />
-          </div>
-          <div className="flex items-center justify-center opacity-60 grayscale hover:grayscale-0 hover:opacity-100 transition-all">
-            <img src="/src/assets/logos/burberry.png" alt="Burberry" className="h-10 object-contain" />
-          </div>
-        </div>
-      </div>
     </div>
   );
 };

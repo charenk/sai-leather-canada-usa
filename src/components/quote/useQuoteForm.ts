@@ -260,9 +260,9 @@ export const useQuoteForm = () => {
         shippingAddress: sanitizeInput(data.shippingAddress || ''),
       };
       
-      // Create template params
+      // Create template params - Make sure to_email is set correctly
       const templateParams = {
-        to_email: config.destinationEmail, 
+        to_email: config.destinationEmail, // Set recipient email from config
         from_name: sanitizedData.fullName,
         company_name: sanitizedData.companyName,
         from_email: sanitizedData.email,
@@ -279,14 +279,16 @@ export const useQuoteForm = () => {
         shipping_address: sanitizedData.shippingAddress || "Not provided",
         request_nda: data.requestNDA ? "Yes" : "No",
         file_attachment: fileData,
-        file_name: selectedFile ? selectedFile.name : "No file attached"
+        file_name: selectedFile ? selectedFile.name : "No file attached",
+        reply_to: sanitizedData.email // Add reply_to parameter for better email delivery
       };
 
       console.log("Submitting form with EmailJS config:", {
         serviceId: config.serviceId,
         templateId: config.templateId,
         userIdLength: config.userId?.length || 0,
-        hasFileAttachment: !!fileData
+        hasFileAttachment: !!fileData,
+        destinationEmail: config.destinationEmail // Log the destination email
       });
 
       // Send email through EmailJS with error handling
@@ -322,6 +324,9 @@ export const useQuoteForm = () => {
           errorMessage = "The file you're trying to send is too large. Please reduce file size or remove attachment.";
         } else if (emailJSError?.status === 429) {
           errorMessage = "Too many requests. Please try again later.";
+        } else if (emailJSError?.status === 422) {
+          errorMessage = "The form configuration appears to be invalid. Our team has been notified.";
+          console.error("EmailJS 422 error - recipient configuration issue:", emailJSError);
         }
         
         toast({

@@ -130,9 +130,7 @@ const Index = () => {
       <section className="py-20 bg-sai-red/10 mb-0">
         <div className="section-container text-center">
           <h2 className="text-3xl md:text-4xl font-display font-bold text-sai-navy mb-6">Looking for a Trusted OEM Leather Partner?</h2>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto mb-8">
-            Let's discuss how Sai International can meet your leather garment manufacturing needs with our premium OEM services.
-          </p>
+          <p className="text-xl text-gray-600 max-w-2xl mx-auto mb-8">Let’s talk about how Sai International can support your leather manufacturing needs with quality and care.</p>
           <Button asChild size="lg" className="bg-sai-red hover:bg-sai-red/90">
             <Link to="/contact">
               Contact Us Today

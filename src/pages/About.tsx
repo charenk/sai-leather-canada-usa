@@ -36,11 +36,8 @@ const About = () => {
       {/* Timeline Section */}
       <section className="py-16 bg-gray-50">
         <div className="section-container">
-          <SectionHeading 
-            title="Our Journey" 
-            subtitle="Key milestones in Sai International's growth over the years"
-            alignment="center"
-          />
+          {/* Removed duplicate "Our Journey" title here */}
+          <p className="text-center text-lg text-gray-700 mb-16">Key milestones in Sai International's growth over the years</p>
           
           <div className="mt-16 space-y-16">
             {[

@@ -25,10 +25,21 @@ const Index = () => {
     return () => observer.disconnect();
   }, []);
   return <main>
-      {/* Hero Section */}
+      {/* Hero Section - Rearranged layout with stats on left, text on right */}
       <section className="pt-28 pb-20 md:pt-40 md:pb-24 relative bg-gradient-to-br from-sai-blue/40 to-white">
         <div className="section-container flex flex-col md:flex-row items-center">
-          <div className="w-full md:w-1/2 mb-10 md:mb-0">
+          {/* Stats moved to the left side */}
+          <div className="w-full md:w-1/2 space-y-6 animate-on-scroll order-2 md:order-1 mb-10 md:mb-0">
+            <div className="grid grid-cols-2 gap-6">
+              <StatCard value="15+" label="Years Experience" color="red" />
+              <StatCard value="200+" label="Skilled Artisans" color="blue" />
+              <StatCard value="500K+" label="Units Produced" color="coral" />
+              <StatCard value="50+" label="Brand Partners" color="lavender" />
+            </div>
+          </div>
+          
+          {/* Text content moved to the right side */}
+          <div className="w-full md:w-1/2 order-1 md:order-2 md:pl-10">
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold text-sai-navy">
               Premium OEM <span className="text-sai-red">Leather</span> Garment Manufacturer
             </h1>
@@ -47,10 +58,6 @@ const Index = () => {
                 </Link>
               </Button>
             </div>
-          </div>
-          
-          <div className="w-full md:w-1/2 pl-0 md:pl-10">
-            <img src="/lovable-uploads/2511fc82-3bbf-40f1-8e0d-3f5c678b8ecc.png" alt="Collection of colorful leather jackets on a clothing rack" className="rounded-lg shadow-xl w-full h-auto object-cover aspect-[4/3]" />
           </div>
         </div>
       </section>

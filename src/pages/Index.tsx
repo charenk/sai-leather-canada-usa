@@ -1,4 +1,3 @@
-
 import React, { useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { ArrowRight } from 'lucide-react';
@@ -75,7 +74,7 @@ const Index = () => {
             <div className="w-full md:w-1/2 animate-on-scroll order-1 md:order-2">
               <SectionHeading title="From European Excellence to North American Markets" />
               <p className="mb-6 text-gray-600">
-                Sai International specializes in OEM manufacturing of high-quality leather garments, combining traditional craftsmanship with modern production techniques. Our commitment to quality, ethical production practices, and customized solutions has made us a preferred partner for premium brands across Europe.
+                Sai International provides dependable OEM manufacturing for leather garments at scale. With 15+ years of industry experience, skilled artisans, and a proven track record serving top European brands, we deliver consistent quality, ethical production, and on-time delivery — customized to your brand's needs.
               </p>
               <Button asChild variant="outline" className="mt-4 flex items-center">
                 <Link to="/about">

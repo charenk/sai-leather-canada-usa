@@ -1,27 +1,18 @@
+
 import React from 'react';
-import { Upload, Check } from 'lucide-react';
 import { FormField, FormItem, FormLabel, FormControl, FormMessage } from '@/components/ui/form';
 import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { UseFormReturn } from 'react-hook-form';
-import { FileInput } from '@/components/ui/file-input';
 import FormSectionHeading from './FormSectionHeading';
 import { FormData } from './types';
 
 interface ProductRequirementsSectionProps {
   form: UseFormReturn<FormData>;
-  handleFileChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  selectedFile: File | null;
-  fileError: string | null;
-  allowedFileExtensions: string;
 }
 
 const ProductRequirementsSection: React.FC<ProductRequirementsSectionProps> = ({ 
-  form, 
-  handleFileChange, 
-  selectedFile, 
-  fileError,
-  allowedFileExtensions
+  form 
 }) => {
   return (
     <div>
@@ -130,52 +121,6 @@ const ProductRequirementsSection: React.FC<ProductRequirementsSectionProps> = ({
             </FormItem>
           )}
         />
-        <FormField
-          control={form.control}
-          name="targetPrice"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel className="text-gray-700">Target Price Range (optional)</FormLabel>
-              <Select onValueChange={field.onChange} defaultValue={field.value}>
-                <FormControl>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Select price range (USD)" />
-                  </SelectTrigger>
-                </FormControl>
-                <SelectContent>
-                  <SelectItem value="budget">$50-100 per piece</SelectItem>
-                  <SelectItem value="mid-range">$101-200 per piece</SelectItem>
-                  <SelectItem value="premium">$201-500 per piece</SelectItem>
-                  <SelectItem value="luxury">$500+ per piece</SelectItem>
-                </SelectContent>
-              </Select>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="timeline"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel className="text-gray-700">Project Timeline *</FormLabel>
-              <Select onValueChange={field.onChange} defaultValue={field.value}>
-                <FormControl>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Select timeline" />
-                  </SelectTrigger>
-                </FormControl>
-                <SelectContent>
-                  <SelectItem value="urgent">Urgent (1-2 months)</SelectItem>
-                  <SelectItem value="standard">Standard (3-4 months)</SelectItem>
-                  <SelectItem value="relaxed">Relaxed (5-6 months)</SelectItem>
-                  <SelectItem value="planning">Planning Phase (6+ months)</SelectItem>
-                </SelectContent>
-              </Select>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
       </div>
       
       <div className="mt-6">
@@ -196,28 +141,6 @@ const ProductRequirementsSection: React.FC<ProductRequirementsSectionProps> = ({
             </FormItem>
           )}
         />
-      </div>
-      
-      <div className="mt-6 bg-gray-50 p-4 rounded-lg">
-        <div className="flex items-center gap-2 mb-2">
-          <Upload className="h-5 w-5 text-sai-red" />
-          <p className="font-medium text-gray-700">Reference Files (Secure Upload)</p>
-        </div>
-        <p className="text-sm text-gray-500 mb-3">
-          Upload design sketches, reference images, or technical specifications (PDF, PNG, JPG, ZIP - max 5MB)
-        </p>
-        <FileInput 
-          acceptedFileTypes={[]}
-          maxSize={5}
-          accept={allowedFileExtensions}
-          onChange={handleFileChange}
-        />
-        {selectedFile && !fileError && (
-          <div className="mt-2 text-sm text-green-600 flex items-center gap-1">
-            <Check className="h-4 w-4" />
-            <span>{selectedFile.name} ({(selectedFile.size / (1024 * 1024)).toFixed(2)}MB)</span>
-          </div>
-        )}
       </div>
     </div>
   );

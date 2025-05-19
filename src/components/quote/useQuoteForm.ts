@@ -1,3 +1,4 @@
+
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -11,8 +12,6 @@ export const useQuoteForm = () => {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [requestingSample, setRequestingSample] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [selectedFile, setSelectedFile] = useState<File | null>(null);
-  const [fileError, setFileError] = useState<string | null>(null);
   
   const form = useForm<FormData>({
     resolver: zodResolver(formSchema),
@@ -26,18 +25,11 @@ export const useQuoteForm = () => {
       leatherType: "",
       finishType: "",
       quantity: "",
-      targetPrice: "",
-      timeline: "",
       additionalInfo: "",
       requestSample: false,
       shippingAddress: "",
-      requestNDA: false,
-      agreeToTerms: false,
     },
   });
-
-  // Maximum file size for uploads (in MB)
-  const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
 
   // Rate limiting implementation
   const checkRateLimit = (): boolean => {
@@ -69,119 +61,6 @@ export const useQuoteForm = () => {
       .replace(/'/g, '&#39;')
       .replace(/`/g, '&#96;')
       .replace(/\//g, '&#47;');
-  };
-
-  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const files = event.target.files;
-    setFileError(null);
-    
-    if (files && files.length > 0) {
-      const file = files[0];
-      
-      if (file.size > MAX_FILE_SIZE) {
-        setFileError(`File is too large. Maximum size is 5MB.`);
-        setSelectedFile(null);
-        return;
-      }
-      
-      const allowedTypes = [
-        "application/pdf",
-        "image/png",
-        "image/jpeg",
-        "application/zip",
-        "application/x-zip-compressed"
-      ];
-      
-      if (!allowedTypes.includes(file.type)) {
-        setFileError("Invalid file type. Please upload PDF, PNG, JPG, or ZIP files only.");
-        setSelectedFile(null);
-        return;
-      }
-      
-      setSelectedFile(file);
-    }
-  };
-  
-  // Optimized base64 encoding with resizing for images
-  const processFileForEmailJS = async (file: File): Promise<string | null> => {
-    try {
-      // For images, resize them to reduce size
-      if (file.type.startsWith('image/')) {
-        return await resizeAndConvertImageToBase64(file);
-      } 
-      
-      // For other files that are small enough
-      if (file.size <= MAX_FILE_SIZE) {
-        return await readFileAsBase64(file);
-      }
-      
-      // File is too large
-      setFileError(`File is too large for submission. Maximum size is 5MB.`);
-      return null;
-    } catch (error) {
-      console.error("Error processing file:", error);
-      return null;
-    }
-  };
-  
-  // Resize images before converting to base64
-  const resizeAndConvertImageToBase64 = (file: File): Promise<string> => {
-    return new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.onload = (event) => {
-        const img = new Image();
-        img.onload = () => {
-          // Calculate new dimensions (max 800px width/height)
-          let width = img.width;
-          let height = img.height;
-          const MAX_DIMENSION = 800;
-          
-          if (width > height && width > MAX_DIMENSION) {
-            height = (height * MAX_DIMENSION) / width;
-            width = MAX_DIMENSION;
-          } else if (height > MAX_DIMENSION) {
-            width = (width * MAX_DIMENSION) / height;
-            height = MAX_DIMENSION;
-          }
-          
-          // Create canvas and resize
-          const canvas = document.createElement('canvas');
-          canvas.width = width;
-          canvas.height = height;
-          
-          const ctx = canvas.getContext('2d');
-          if (!ctx) {
-            reject(new Error('Could not get canvas context'));
-            return;
-          }
-          
-          ctx.drawImage(img, 0, 0, width, height);
-          
-          // Get reduced quality base64
-          const quality = 0.7; // 70% quality
-          const base64 = canvas.toDataURL(file.type, quality);
-          resolve(base64);
-        };
-        
-        img.onerror = (error) => reject(error);
-        if (event.target?.result) {
-          img.src = event.target.result as string;
-        } else {
-          reject(new Error('Failed to load image'));
-        }
-      };
-      reader.onerror = (error) => reject(error);
-      reader.readAsDataURL(file);
-    });
-  };
-  
-  const readFileAsBase64 = (file: File): Promise<string> => {
-    return new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onload = () => resolve(reader.result as string);
-      reader.onerror = error => reject(error);
-    });
   };
 
   const onSubmit = async (data: FormData) => {
@@ -218,31 +97,6 @@ export const useQuoteForm = () => {
         return;
       }
       
-      let fileData = null;
-      if (selectedFile) {
-        try {
-          fileData = await processFileForEmailJS(selectedFile);
-          if (!fileData && selectedFile.size > MAX_FILE_SIZE) {
-            toast({
-              title: "File processing error",
-              description: "The file is too large. Please reduce the file size or try a different file (max 5MB).",
-              variant: "destructive",
-            });
-            setIsLoading(false);
-            return;
-          }
-        } catch (error) {
-          console.error("Error processing file:", error);
-          toast({
-            title: "File processing error",
-            description: "There was a problem processing your file. Please try again with a different file.",
-            variant: "destructive",
-          });
-          setIsLoading(false);
-          return;
-        }
-      }
-      
       // Sanitize inputs before sending
       const sanitizedData = {
         fullName: sanitizeInput(data.fullName),
@@ -254,8 +108,6 @@ export const useQuoteForm = () => {
         leatherType: sanitizeInput(data.leatherType),
         finishType: sanitizeInput(data.finishType),
         quantity: sanitizeInput(data.quantity),
-        targetPrice: sanitizeInput(data.targetPrice || ''),
-        timeline: sanitizeInput(data.timeline),
         additionalInfo: sanitizeInput(data.additionalInfo || ''),
         shippingAddress: sanitizeInput(data.shippingAddress || ''),
       };
@@ -272,14 +124,9 @@ export const useQuoteForm = () => {
         leather_type: sanitizedData.leatherType,
         finish_type: sanitizedData.finishType,
         quantity: sanitizedData.quantity,
-        target_price: sanitizedData.targetPrice || "Not specified",
-        timeline: sanitizedData.timeline,
         additional_info: sanitizedData.additionalInfo || "None",
         request_sample: data.requestSample ? "Yes" : "No",
         shipping_address: sanitizedData.shippingAddress || "Not provided",
-        request_nda: data.requestNDA ? "Yes" : "No",
-        file_attachment: fileData,
-        file_name: selectedFile ? selectedFile.name : "No file attached",
         reply_to: sanitizedData.email // Add reply_to parameter for better email delivery
       };
 
@@ -287,7 +134,6 @@ export const useQuoteForm = () => {
         serviceId: config.serviceId,
         templateId: config.templateId,
         userIdLength: config.userId?.length || 0,
-        hasFileAttachment: !!fileData,
         destinationEmail: config.destinationEmail // Log the destination email
       });
 
@@ -321,7 +167,7 @@ export const useQuoteForm = () => {
         }
         
         if (emailJSError?.status === 413) {
-          errorMessage = "The file you're trying to send is too large. Please reduce file size or remove attachment.";
+          errorMessage = "There was an issue with your submission. Please try again.";
         } else if (emailJSError?.status === 429) {
           errorMessage = "Too many requests. Please try again later.";
         } else if (emailJSError?.status === 422) {
@@ -354,9 +200,6 @@ export const useQuoteForm = () => {
     requestingSample,
     setRequestingSample,
     isLoading,
-    selectedFile,
-    fileError,
-    handleFileChange,
     onSubmit
   };
 };

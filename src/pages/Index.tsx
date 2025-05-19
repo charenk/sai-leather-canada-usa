@@ -132,9 +132,7 @@ const Index = () => {
           <h2 className="text-3xl md:text-4xl font-display font-bold text-sai-navy mb-6">Looking for a Trusted OEM Leather Partner?</h2>
           <p className="text-xl text-gray-600 max-w-2xl mx-auto mb-8">Let’s talk about how Sai International can support your leather manufacturing needs with quality and care.</p>
           <Button asChild size="lg" className="bg-sai-red hover:bg-sai-red/90">
-            <Link to="/contact">
-              Contact Us Today
-            </Link>
+            <Link to="/contact">Let’s Connect</Link>
           </Button>
         </div>
       </section>

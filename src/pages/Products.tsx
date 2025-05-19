@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Button } from '@/components/ui/button';
 import SectionHeading from '@/components/SectionHeading';
@@ -29,7 +28,7 @@ const Products = () => {
       name: "Leather Accessories",
       description: "Complete your look with our range of premium leather accessories",
       products: [
-        { name: "Wallets", image: "https://images.unsplash.com/photo-1615351496279-eef71cb76f3c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" },
+        { name: "Wallets", image: "/lovable-uploads/8aa850d0-0029-45a4-b0f3-d03d3660805f.png" },
         { name: "Belts", image: "https://images.unsplash.com/photo-1556726588-38256f2c8313?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" },
         { name: "Gloves", image: "https://images.unsplash.com/photo-1584359866933-9d0a4d9830a5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" },
       ]
@@ -115,7 +114,7 @@ const Products = () => {
           </div>
         </section>
 
-        {/* Materials Section - MOVED HERE */}
+        {/* Materials Section */}
         <section className="mt-16">
           <h3 className="text-2xl font-bold text-sai-navy mb-6">Our Materials</h3>
           <div className="bg-gray-50 rounded-xl p-8">

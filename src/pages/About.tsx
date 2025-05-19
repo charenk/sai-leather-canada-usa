@@ -1,3 +1,4 @@
+
 import React, { useEffect } from 'react';
 import SectionHeading from '@/components/SectionHeading';
 
@@ -40,10 +41,10 @@ const About = () => {
               <h2 className="text-3xl font-display font-bold text-sai-navy mb-6">Our Story</h2>
               <div className="space-y-4 text-gray-700">
                 <p>
-                  Founded in 2008, Sai International began as a small workshop specializing in handcrafted leather goods. Our founder, with a deep passion for leatherwork and a vision for creating exceptional quality products, established the company with just 15 skilled artisans.
+                  Founded in 2001, Sai International began as a small workshop specializing in handcrafted leather goods. Our founder, with a deep passion for leatherwork and a vision for creating exceptional quality products, established the company with a dedicated team of skilled artisans.
                 </p>
                 <p>
-                  As demand for our craftsmanship grew, so did our operations. By 2012, we had expanded our facilities and workforce to meet the growing needs of European luxury brands who recognized the quality of our work. Our commitment to excellence and attention to detail quickly established us as a reliable partner for premium leather manufacturing.
+                  As demand for our craftsmanship grew, so did our operations. By 2006, we had secured partnerships with leading European luxury brands who recognized the quality of our work. Our commitment to excellence and attention to detail quickly established us as a reliable partner for premium leather manufacturing.
                 </p>
                 <p>
                   Today, Sai International operates a state-of-the-art manufacturing facility spanning over 50,000 square feet, employing more than 200 skilled artisans and technicians. We've maintained our commitment to quality craftsmanship while integrating modern production techniques and sustainable practices.
@@ -88,29 +89,34 @@ const About = () => {
           <div className="mt-16 space-y-16">
             {[
               {
-                year: "2008",
-                title: "Humble Beginnings",
-                description: "Founded with 15 artisans, specializing in handcrafted leather goods."
+                year: "2001",
+                title: "Founded with Purpose",
+                description: "Sai International is established with a dedicated team of artisans, focusing on handcrafted leather garments for export."
               },
               {
-                year: "2012",
-                title: "European Partnership",
-                description: "Secured first major European brand partnership, marking our entry into OEM manufacturing."
+                year: "2003",
+                title: "Entry into European Markets",
+                description: "Started building relationships with fashion houses across Europe, delivering custom leather goods with craftsmanship and care."
               },
               {
-                year: "2015",
+                year: "2006",
+                title: "First Major Brand Partnership",
+                description: "Secured long-term manufacturing partnerships with leading European brands — marking a milestone in our global reputation."
+              },
+              {
+                year: "2010",
                 title: "Facility Expansion",
-                description: "Expanded to a 25,000 sq ft facility with advanced machinery and 100+ skilled workers."
+                description: "Scaled up operations with a 25,000 sq ft facility and advanced machinery to support higher volumes and more complex production needs."
               },
               {
                 year: "2018",
-                title: "Sustainability Initiative",
-                description: "Launched our sustainability program focusing on ethical sourcing and eco-friendly practices."
+                title: "Sustainability Commitment",
+                description: "Launched our sustainability initiative, emphasizing ethical sourcing, eco-conscious materials, and responsible manufacturing."
               },
               {
-                year: "2023",
-                title: "North American Expansion",
-                description: "Beginning our expansion into North American markets with dedicated sales and support teams."
+                year: "2024",
+                title: "500,000+ Garments Shipped",
+                description: "Celebrated the production and global shipment of over half a million leather garments — a testament to consistent quality and enduring client trust."
               }
             ].map((milestone, index) => (
               <div key={index} className="flex flex-col md:flex-row gap-8 items-start animate-on-scroll">

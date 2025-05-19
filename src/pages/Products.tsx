@@ -45,50 +45,6 @@ const Products = () => {
           alignment="center"
         />
 
-        {/* Materials Section */}
-        <section className="mt-16">
-          <h3 className="text-2xl font-bold text-sai-navy mb-6">Our Materials</h3>
-          <div className="bg-gray-50 rounded-xl p-8">
-            <p className="text-gray-700 mb-6">
-              At Sai International, we source only the highest quality leathers from ethical suppliers. Our commitment to excellence begins with the materials we select:
-            </p>
-            
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
-              {[
-                {
-                  name: "Full Grain Leather",
-                  description: "The highest quality leather, featuring the full grain of the hide for superior durability and a rich patina development over time."
-                },
-                {
-                  name: "Top Grain Leather",
-                  description: "Slightly processed to remove imperfections while maintaining excellent durability and a luxurious feel."
-                },
-                {
-                  name: "Nappa Leather",
-                  description: "Soft, lightweight leather with a smooth finish, perfect for comfortable wearable items."
-                },
-                {
-                  name: "Suede",
-                  description: "Leather with a napped finish, offering a soft, velvety texture for distinctive styling."
-                },
-                {
-                  name: "Vegetable Tanned Leather",
-                  description: "Eco-friendly leather tanned using natural materials for a traditional, artisanal finish."
-                },
-                {
-                  name: "Chrome Tanned Leather",
-                  description: "Modern tanning process resulting in soft, flexible leather with excellent color retention."
-                },
-              ].map((material, index) => (
-                <div key={index} className="bg-white p-6 rounded-lg shadow-sm border border-gray-100">
-                  <h4 className="font-bold text-lg text-sai-navy mb-2">{material.name}</h4>
-                  <p className="text-gray-600">{material.description}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
         {/* Product Categories */}
         {categories.map((category, categoryIndex) => (
           <section key={categoryIndex} className="mt-16">
@@ -156,6 +112,50 @@ const Products = () => {
                 <p className="text-gray-600">{item.description}</p>
               </div>
             ))}
+          </div>
+        </section>
+
+        {/* Materials Section - MOVED HERE */}
+        <section className="mt-16">
+          <h3 className="text-2xl font-bold text-sai-navy mb-6">Our Materials</h3>
+          <div className="bg-gray-50 rounded-xl p-8">
+            <p className="text-gray-700 mb-6">
+              At Sai International, we source only the highest quality leathers from ethical suppliers. Our commitment to excellence begins with the materials we select:
+            </p>
+            
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
+              {[
+                {
+                  name: "Full Grain Leather",
+                  description: "The highest quality leather, featuring the full grain of the hide for superior durability and a rich patina development over time."
+                },
+                {
+                  name: "Top Grain Leather",
+                  description: "Slightly processed to remove imperfections while maintaining excellent durability and a luxurious feel."
+                },
+                {
+                  name: "Nappa Leather",
+                  description: "Soft, lightweight leather with a smooth finish, perfect for comfortable wearable items."
+                },
+                {
+                  name: "Suede",
+                  description: "Leather with a napped finish, offering a soft, velvety texture for distinctive styling."
+                },
+                {
+                  name: "Vegetable Tanned Leather",
+                  description: "Eco-friendly leather tanned using natural materials for a traditional, artisanal finish."
+                },
+                {
+                  name: "Chrome Tanned Leather",
+                  description: "Modern tanning process resulting in soft, flexible leather with excellent color retention."
+                },
+              ].map((material, index) => (
+                <div key={index} className="bg-white p-6 rounded-lg shadow-sm border border-gray-100">
+                  <h4 className="font-bold text-lg text-sai-navy mb-2">{material.name}</h4>
+                  <p className="text-gray-600">{material.description}</p>
+                </div>
+              ))}
+            </div>
           </div>
         </section>
 

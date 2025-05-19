@@ -36,10 +36,7 @@ const About = () => {
       {/* Timeline Section */}
       <section className="bg-gray-50 py-12">
         <div className="section-container">
-          {/* Removed duplicate "Our Journey" title here */}
-          
           <div className="space-y-16">
-            {/* Removed the redundant "Key milestones" text completely */}
             {[
               {
                 year: "2001",
@@ -82,54 +79,6 @@ const About = () => {
                   <h3 className="text-2xl font-bold text-sai-navy mb-3">{milestone.title}</h3>
                   <p className="text-gray-700">{milestone.description}</p>
                 </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-      
-      {/* Values Section */}
-      <section className="py-16">
-        <div className="section-container">
-          <SectionHeading 
-            title="Our Values" 
-            subtitle="The principles that guide our work and relationships"
-            alignment="center"
-          />
-          
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-12">
-            {[
-              {
-                value: "Excellence",
-                description: "We strive for excellence in every stitch, seam, and finished product."
-              },
-              {
-                value: "Integrity",
-                description: "We conduct our business with honesty, transparency, and ethical practices."
-              },
-              {
-                value: "Innovation",
-                description: "We continuously explore new techniques and materials while respecting traditional craftsmanship."
-              },
-              {
-                value: "Sustainability",
-                description: "We are committed to environmentally responsible practices throughout our production process."
-              },
-              {
-                value: "Partnership",
-                description: "We build lasting relationships with our clients based on mutual respect and collaboration."
-              },
-              {
-                value: "Empowerment",
-                description: "We invest in our people, providing opportunities for growth and development."
-              }
-            ].map((item, index) => (
-              <div 
-                key={index} 
-                className="bg-white rounded-xl p-8 shadow-md border border-gray-100 text-center animate-on-scroll"
-              >
-                <h3 className="text-xl font-bold text-sai-navy mb-4">{item.value}</h3>
-                <p className="text-gray-600">{item.description}</p>
               </div>
             ))}
           </div>

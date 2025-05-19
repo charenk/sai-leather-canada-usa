@@ -1,3 +1,4 @@
+
 import React, { useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { ArrowRight } from 'lucide-react';
@@ -140,7 +141,7 @@ const Index = () => {
             {[
               {
                 title: "Leather Jackets",
-                image: "https://images.unsplash.com/photo-1551028719-00167b16eac5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80"
+                image: "/lovable-uploads/82d75e5e-0fdd-410e-9674-feea43f6bc11.png"
               },
               {
                 title: "Leather Bags",

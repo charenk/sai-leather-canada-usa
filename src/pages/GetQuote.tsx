@@ -45,12 +45,14 @@ const GetQuote = () => {
       <div className="section-container">
         <SecurityBanner />
         
-        {/* Hero Section */}
-        <div className="text-center max-w-3xl mx-auto mb-12">
+        {/* Hero Section - Updated for better centering */}
+        <div className="flex flex-col items-center justify-center text-center max-w-3xl mx-auto mb-12">
           <SectionHeading
             title="Get a Personalized Quote"
+            alignment="center"
+            className="mb-4"
           />
-          <p className="text-lg text-gray-600">
+          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
             Request a personalized quote or sample. We're here to support your sourcing journey.
           </p>
         </div>

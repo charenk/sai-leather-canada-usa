@@ -1,22 +1,15 @@
-
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { cn } from '@/lib/utils';
 import { Mail, Phone, Globe } from 'lucide-react';
-
 const Footer = () => {
   const currentYear = new Date().getFullYear();
-  
-  return (
-    <footer className="bg-sai-navy text-white pt-16 pb-6">
+  return <footer className="bg-sai-navy text-white pt-16 pb-6">
       <div className="section-container">
         <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-8">
           <div className="space-y-4">
             <h3 className="text-2xl font-display font-bold">Sai International</h3>
-            <p className="text-gray-300 max-w-xs">
-              Premium OEM leather garment manufacturer with 15+ years of 
-              experience serving European brands, now expanding to North America.
-            </p>
+            <p className="text-gray-300 max-w-xs">Where Quality Meets Consistency.</p>
           </div>
           
           <div>
@@ -108,8 +101,6 @@ const Footer = () => {
           </div>
         </div>
       </div>
-    </footer>
-  );
+    </footer>;
 };
-
 export default Footer;

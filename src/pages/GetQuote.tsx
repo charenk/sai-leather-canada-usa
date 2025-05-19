@@ -51,7 +51,7 @@ const GetQuote = () => {
   return (
     <main className="pt-32 pb-16 bg-gray-50">
       <div className="section-container">
-        <SecurityBanner />
+        <SecurityBanner fileSize={selectedFile?.size} />
         
         {/* Hero Section */}
         <div className="text-center max-w-3xl mx-auto mb-12">

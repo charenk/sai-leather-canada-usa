@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Upload, Check } from 'lucide-react';
 import { FormField, FormItem, FormLabel, FormControl, FormMessage } from '@/components/ui/form';
@@ -205,11 +204,11 @@ const ProductRequirementsSection: React.FC<ProductRequirementsSectionProps> = ({
           <p className="font-medium text-gray-700">Reference Files (Secure Upload)</p>
         </div>
         <p className="text-sm text-gray-500 mb-3">
-          Upload design sketches, reference images, or technical specifications (PDF, PNG, JPG, ZIP - max file size in MB)
+          Upload design sketches, reference images, or technical specifications (PDF, PNG, JPG, ZIP - max 5MB)
         </p>
         <FileInput 
           acceptedFileTypes={[]}
-          maxSize={10}
+          maxSize={5}
           accept={allowedFileExtensions}
           onChange={handleFileChange}
         />

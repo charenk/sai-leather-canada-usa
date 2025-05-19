@@ -20,7 +20,7 @@ const SectionHeading = ({
     'text-right': alignment === 'right'
   }, className)}>
       <h2 className="text-3xl md:text-4xl font-semibold tracking-tight inverted text-zinc-700">
-        <span className="text-zinc-700">From European Craftsmanship to Global Standards</span>
+        <span className="text-zinc-700">Heritage Craftsmanship. Modern Elegance.</span>
       </h2>
       {subtitle && <p className={cn("mt-4 text-gray-700 max-w-3xl text-lg", {
       'mx-auto': alignment === 'center',

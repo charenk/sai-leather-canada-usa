@@ -33,50 +33,6 @@ const About = () => {
         </div>
       </section>
       
-      {/* Our Story Section */}
-      <section className="py-16">
-        <div className="section-container">
-          <div className="flex flex-col md:flex-row gap-12">
-            <div className="w-full md:w-1/2 animate-on-scroll">
-              <h2 className="text-3xl font-display font-bold text-sai-navy mb-6">Our Story</h2>
-              <div className="space-y-4 text-gray-700">
-                <p>
-                  Founded in 2001, Sai International began as a small workshop specializing in handcrafted leather goods. Our founder, with a deep passion for leatherwork and a vision for creating exceptional quality products, established the company with a dedicated team of skilled artisans.
-                </p>
-                <p>
-                  As demand for our craftsmanship grew, so did our operations. By 2006, we had secured partnerships with leading European luxury brands who recognized the quality of our work. Our commitment to excellence and attention to detail quickly established us as a reliable partner for premium leather manufacturing.
-                </p>
-                <p>
-                  Today, Sai International operates a state-of-the-art manufacturing facility spanning over 50,000 square feet, employing more than 200 skilled artisans and technicians. We've maintained our commitment to quality craftsmanship while integrating modern production techniques and sustainable practices.
-                </p>
-              </div>
-            </div>
-            
-            <div className="w-full md:w-1/2 animate-on-scroll">
-              <h2 className="text-3xl font-display font-bold text-sai-navy mb-6">Our Mission</h2>
-              <div className="space-y-4 text-gray-700">
-                <p>
-                  At Sai International, our mission is to bridge traditional leather craftsmanship with modern manufacturing techniques to create premium quality leather garments that exceed our clients' expectations.
-                </p>
-                <p>
-                  We are committed to:
-                </p>
-                <ul className="list-disc pl-6 space-y-2">
-                  <li>Delivering exceptional quality in every piece we produce</li>
-                  <li>Maintaining ethical and sustainable production practices</li>
-                  <li>Supporting our skilled artisans with fair wages and working conditions</li>
-                  <li>Continuously innovating while preserving traditional craftsmanship</li>
-                  <li>Building long-term partnerships based on trust and reliability</li>
-                </ul>
-                <p>
-                  As we expand into North American markets, we bring with us our European-honed expertise and commitment to excellence, ready to serve new clients with the same dedication that has built our reputation.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-      
       {/* Timeline Section */}
       <section className="py-16 bg-gray-50">
         <div className="section-container">
@@ -179,6 +135,50 @@ const About = () => {
                 <p className="text-gray-600">{item.description}</p>
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+      
+      {/* Our Story Section - MOVED TO BOTTOM */}
+      <section className="py-16">
+        <div className="section-container">
+          <div className="flex flex-col md:flex-row gap-12">
+            <div className="w-full md:w-1/2 animate-on-scroll">
+              <h2 className="text-3xl font-display font-bold text-sai-navy mb-6">Our Story</h2>
+              <div className="space-y-4 text-gray-700">
+                <p>
+                  Founded in 2001, Sai International began as a small workshop specializing in handcrafted leather goods. Our founder, with a deep passion for leatherwork and a vision for creating exceptional quality products, established the company with a dedicated team of skilled artisans.
+                </p>
+                <p>
+                  As demand for our craftsmanship grew, so did our operations. By 2006, we had secured partnerships with leading European luxury brands who recognized the quality of our work. Our commitment to excellence and attention to detail quickly established us as a reliable partner for premium leather manufacturing.
+                </p>
+                <p>
+                  Today, Sai International operates a state-of-the-art manufacturing facility spanning over 50,000 square feet, employing more than 200 skilled artisans and technicians. We've maintained our commitment to quality craftsmanship while integrating modern production techniques and sustainable practices.
+                </p>
+              </div>
+            </div>
+            
+            <div className="w-full md:w-1/2 animate-on-scroll">
+              <h2 className="text-3xl font-display font-bold text-sai-navy mb-6">Our Mission</h2>
+              <div className="space-y-4 text-gray-700">
+                <p>
+                  At Sai International, our mission is to bridge traditional leather craftsmanship with modern manufacturing techniques to create premium quality leather garments that exceed our clients' expectations.
+                </p>
+                <p>
+                  We are committed to:
+                </p>
+                <ul className="list-disc pl-6 space-y-2">
+                  <li>Delivering exceptional quality in every piece we produce</li>
+                  <li>Maintaining ethical and sustainable production practices</li>
+                  <li>Supporting our skilled artisans with fair wages and working conditions</li>
+                  <li>Continuously innovating while preserving traditional craftsmanship</li>
+                  <li>Building long-term partnerships based on trust and reliability</li>
+                </ul>
+                <p>
+                  As we expand into North American markets, we bring with us our European-honed expertise and commitment to excellence, ready to serve new clients with the same dedication that has built our reputation.
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       </section>

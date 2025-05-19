@@ -1,4 +1,3 @@
-
 import { cn } from '@/lib/utils';
 interface SectionHeadingProps {
   title: string;

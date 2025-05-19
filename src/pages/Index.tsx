@@ -1,3 +1,4 @@
+
 import React, { useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { ArrowRight } from 'lucide-react';
@@ -138,38 +139,6 @@ const Index = () => {
                 View All Products
               </Link>
             </Button>
-          </div>
-        </div>
-      </section>
-      
-      {/* Services Section */}
-      <section className="py-16 bg-gradient-to-br from-sai-navy to-sai-navy/90 text-white bg-slate-100">
-        <div className="section-container">
-          <SectionHeading title="Our OEM Services" subtitle="From concept to creation, we provide end-to-end manufacturing solutions for premium leather garments." alignment="center" className="text-white" subtitleClassName="text-white/80" />
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-12">
-            {[{
-            title: "Custom Design",
-            description: "From concept sketches to finished products, our design team works closely with clients to bring their vision to life."
-          }, {
-            title: "Material Sourcing",
-            description: "We source the highest quality leather and materials from ethical suppliers to ensure premium final products."
-          }, {
-            title: "Production",
-            description: "Our skilled artisans combine traditional craftsmanship with modern techniques to create exceptional garments."
-          }, {
-            title: "Quality Control",
-            description: "Rigorous quality control at every stage ensures that every piece meets our high standards."
-          }, {
-            title: "Packaging & Shipping",
-            description: "Custom packaging solutions and reliable shipping to destinations across North America and Europe."
-          }, {
-            title: "After-Sales Support",
-            description: "Dedicated customer service to ensure satisfaction with every order and address any concerns."
-          }].map((service, index) => <div key={index} className="bg-white/10 backdrop-filter backdrop-blur-sm rounded-xl p-6 hover:bg-white/20 transition-colors animate-on-scroll">
-                <h3 className="text-xl font-bold mb-3">{service.title}</h3>
-                <p className="text-white/80">{service.description}</p>
-              </div>)}
           </div>
         </div>
       </section>

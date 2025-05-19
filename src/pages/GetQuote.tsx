@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Lock } from 'lucide-react';
+import { Lock, CalendarDays } from 'lucide-react';
 import SectionHeading from '@/components/SectionHeading';
 import { Form } from '@/components/ui/form';
 import { Button } from '@/components/ui/button';
@@ -54,6 +54,22 @@ const GetQuote = () => {
           />
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
             Request a personalized quote or sample. We're here to support your sourcing journey.
+          </p>
+        </div>
+        
+        {/* Calendar Call-out Section - Moved above the form section with adjusted width */}
+        <div className="max-w-4xl mx-auto mb-8 bg-blue-50 border border-blue-100 rounded-lg p-4 flex items-center gap-4">
+          <CalendarDays className="h-5 w-5 text-blue-600 flex-shrink-0" />
+          <p className="text-sm font-medium text-gray-700 flex-1">
+            Prefer a conversation? 
+            <Button 
+              variant="link" 
+              className="text-blue-600 px-1 py-0 h-auto font-medium"
+              onClick={() => window.open('https://calendly.com/your-calendar-link', '_blank')}
+            >
+              Book a 30-minute consultation call
+            </Button>
+            instead of filling the form.
           </p>
         </div>
         

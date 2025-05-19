@@ -1,7 +1,6 @@
 
 import React from 'react';
-import { Shield, CalendarDays, AlertTriangle } from 'lucide-react';
-import { Button } from '@/components/ui/button';
+import { Shield, AlertTriangle } from 'lucide-react';
 
 interface SecurityBannerProps {
   fileSize?: number; // Size in bytes
@@ -30,22 +29,6 @@ const SecurityBanner: React.FC<SecurityBannerProps> = ({ fileSize }) => {
           </p>
         </div>
       )}
-      
-      {/* Calendar Call-out Section */}
-      <div className="mb-8 bg-blue-50 border border-blue-100 rounded-lg p-4 flex items-center gap-4">
-        <CalendarDays className="h-5 w-5 text-blue-600 flex-shrink-0" />
-        <p className="text-sm font-medium text-gray-700 flex-1">
-          Prefer a conversation? 
-          <Button 
-            variant="link" 
-            className="text-blue-600 px-1 py-0 h-auto font-medium"
-            onClick={() => window.open('https://calendly.com/your-calendar-link', '_blank')}
-          >
-            Book a 30-minute consultation call
-          </Button>
-          instead of filling the form.
-        </p>
-      </div>
     </>
   );
 };

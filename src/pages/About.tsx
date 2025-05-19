@@ -1,3 +1,4 @@
+
 import React, { useEffect } from 'react';
 import SectionHeading from '@/components/SectionHeading';
 
@@ -143,13 +144,13 @@ const About = () => {
               <h2 className="text-3xl font-display font-bold text-sai-navy mb-6">Our Story</h2>
               <div className="space-y-4 text-gray-700">
                 <p>
-                  Founded in 2001, Sai International began as a small workshop specializing in handcrafted leather goods. Our founder, with a deep passion for leatherwork and a vision for creating exceptional quality products, established the company with a dedicated team of skilled artisans.
+                  Founded in 2001, Sai International began as a small workshop with 15 artisans, dedicated to crafting premium leather garments.
                 </p>
                 <p>
-                  As demand for our craftsmanship grew, so did our operations. By 2006, we had secured partnerships with leading European luxury brands who recognized the quality of our work. Our commitment to excellence and attention to detail quickly established us as a reliable partner for premium leather manufacturing.
+                  By 2003, we were serving fashion brands across Europe and Western markets. Our focus on quality, consistency, and customization earned us lasting partnerships with top-tier labels.
                 </p>
                 <p>
-                  Today, Sai International operates a state-of-the-art manufacturing facility spanning over 50,000 square feet, employing more than 200 skilled artisans and technicians. We've maintained our commitment to quality craftsmanship while integrating modern production techniques and sustainable practices.
+                  Today, we operate a 25,000 sq. ft. facility with over 200 skilled artisans, combining heritage craftsmanship with modern manufacturing to meet global OEM demands.
                 </p>
               </div>
             </div>
@@ -158,21 +159,18 @@ const About = () => {
               <h2 className="text-3xl font-display font-bold text-sai-navy mb-6">Our Mission</h2>
               <div className="space-y-4 text-gray-700">
                 <p>
-                  At Sai International, our mission is to bridge traditional leather craftsmanship with modern manufacturing techniques to create premium quality leather garments that exceed our clients' expectations.
+                  At Sai International, we blend traditional leather craftsmanship with modern techniques to deliver premium-quality garments tailored to our clients' needs.
                 </p>
                 <p>
-                  We are committed to:
+                  We're committed to:
                 </p>
                 <ul className="list-disc pl-6 space-y-2">
-                  <li>Delivering exceptional quality in every piece we produce</li>
-                  <li>Maintaining ethical and sustainable production practices</li>
-                  <li>Supporting our skilled artisans with fair wages and working conditions</li>
-                  <li>Continuously innovating while preserving traditional craftsmanship</li>
-                  <li>Building long-term partnerships based on trust and reliability</li>
+                  <li>Exceptional quality and detail</li>
+                  <li>Ethical, sustainable production</li>
+                  <li>Supporting skilled artisans</li>
+                  <li>Innovation without compromising tradition</li>
+                  <li>Long-term, trust-based partnerships</li>
                 </ul>
-                <p>
-                  As we expand into North American markets, we bring with us our European-honed expertise and commitment to excellence, ready to serve new clients with the same dedication that has built our reputation.
-                </p>
               </div>
             </div>
           </div>

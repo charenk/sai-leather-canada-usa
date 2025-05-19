@@ -22,7 +22,7 @@ const About = () => {
   return (
     <main className="pt-32 pb-16">
       {/* Hero Section */}
-      <section className="pb-16">
+      <section className="pb-8">
         <div className="section-container">
           <SectionHeading 
             title="Our Journey" 
@@ -33,11 +33,11 @@ const About = () => {
       </section>
       
       {/* Timeline Section */}
-      <section className="py-16 bg-gray-50">
+      <section className="bg-gray-50 py-12">
         <div className="section-container">
           {/* Removed duplicate "Our Journey" title here */}
           
-          <div className="mt-16 space-y-16">
+          <div className="space-y-16">
             {/* Removed the redundant "Key milestones" text completely */}
             {[
               {
@@ -135,7 +135,7 @@ const About = () => {
         </div>
       </section>
       
-      {/* Our Story Section - MOVED TO BOTTOM */}
+      {/* Our Story Section */}
       <section className="py-16">
         <div className="section-container">
           <div className="flex flex-col md:flex-row gap-12">

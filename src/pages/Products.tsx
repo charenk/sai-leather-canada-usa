@@ -30,7 +30,7 @@ const Products = () => {
       description: "Complete your look with our range of premium leather accessories",
       products: [
         { name: "Wallets", image: "/lovable-uploads/8aa850d0-0029-45a4-b0f3-d03d3660805f.png" },
-        { name: "Belts", image: "https://images.unsplash.com/photo-1556726588-38256f2c8313?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" },
+        { name: "Belts", image: "/lovable-uploads/76978a37-8a0b-4895-b698-1e9fd2be0293.png" },
         { name: "Gloves", image: "/lovable-uploads/df83f6be-199d-453d-9ae5-7fcb97e2ae7a.png" },
       ]
     },

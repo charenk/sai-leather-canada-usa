@@ -1,3 +1,4 @@
+
 import React, { useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { ArrowRight } from 'lucide-react';
@@ -5,7 +6,6 @@ import SectionHeading from '@/components/SectionHeading';
 import StatCard from '@/components/StatCard';
 import { Link } from 'react-router-dom';
 
-// Remove client logo imports as they're no longer needed
 const Index = () => {
   useEffect(() => {
     // Animation on scroll
@@ -23,6 +23,7 @@ const Index = () => {
     });
     return () => observer.disconnect();
   }, []);
+  
   return <main>
       {/* Hero Section */}
       <section className="pt-28 pb-20 md:pt-40 md:pb-24 relative bg-gradient-to-br from-sai-blue/40 to-white">
@@ -49,12 +50,15 @@ const Index = () => {
           </div>
           
           <div className="w-full md:w-1/2 pl-0 md:pl-10">
-            <img src="/lovable-uploads/2511fc82-3bbf-40f1-8e0d-3f5c678b8ecc.png" alt="Collection of colorful leather jackets on a clothing rack" className="rounded-lg shadow-xl w-full h-auto object-cover aspect-[4/3]" />
+            <img 
+              src="/lovable-uploads/2511fc82-3bbf-40f1-8e0d-3f5c678b8ecc.png" 
+              alt="Collection of colorful leather jackets on a clothing rack" 
+              className="rounded-lg shadow-xl w-full h-auto object-cover aspect-[4/3]"
+              loading="lazy" 
+            />
           </div>
         </div>
       </section>
-      
-      {/* Client logos section removed */}
       
       {/* About Section - Updated to switch positions of content */}
       <section className="py-16 bg-gray-50">
@@ -102,7 +106,14 @@ const Index = () => {
             title: "Leather Accessories",
             image: "/lovable-uploads/5e2cec59-2229-41a3-ae41-d3d650701b1d.png"
           }].map((product, index) => <div key={index} className="group relative overflow-hidden rounded-xl shadow-md animate-on-scroll">
-                <img src={product.image} alt={product.title} className="w-full h-80 object-cover transition-transform duration-500 group-hover:scale-110" />
+                <div className="h-80 overflow-hidden bg-gray-100">
+                  <img 
+                    src={product.image} 
+                    alt={product.title} 
+                    className="w-full h-80 object-cover transition-transform duration-500 group-hover:scale-110" 
+                    loading="lazy"
+                  />
+                </div>
                 <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end">
                   <div className="p-6 w-full">
                     <h3 className="text-xl font-bold text-white">{product.title}</h3>
@@ -126,13 +137,13 @@ const Index = () => {
         </div>
       </section>
       
-      {/* CTA Section - Remove bottom padding to eliminate the white space */}
+      {/* CTA Section */}
       <section className="py-20 bg-sai-red/10 mb-0">
         <div className="section-container text-center">
           <h2 className="text-3xl md:text-4xl font-display font-bold text-sai-navy mb-6">Looking for a Trusted OEM Leather Partner?</h2>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto mb-8">Let’s talk about how Sai International can support your leather manufacturing needs with quality and care.</p>
+          <p className="text-xl text-gray-600 max-w-2xl mx-auto mb-8">Let's talk about how Sai International can support your leather manufacturing needs with quality and care.</p>
           <Button asChild size="lg" className="bg-sai-red hover:bg-sai-red/90">
-            <Link to="/contact">Let’s Connect</Link>
+            <Link to="/contact">Let's Connect</Link>
           </Button>
         </div>
       </section>

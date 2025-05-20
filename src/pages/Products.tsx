@@ -1,8 +1,9 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import SectionHeading from '@/components/SectionHeading';
 import { Link } from 'react-router-dom';
+import { Skeleton } from '@/components/ui/skeleton';
 
 const Products = () => {
   // Product categories
@@ -53,26 +54,7 @@ const Products = () => {
             
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {category.products.map((product, productIndex) => (
-                <div key={productIndex} className="group overflow-hidden rounded-xl shadow-md">
-                  <div className="h-80 overflow-hidden">
-                    <img 
-                      src={product.image} 
-                      alt={product.name} 
-                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" 
-                    />
-                  </div>
-                  <div className="p-6">
-                    <h4 className="font-bold text-lg mb-2">{product.name}</h4>
-                    <p className="text-gray-600">Custom manufactured to your specifications</p>
-                    <div className="mt-4">
-                      <Button asChild variant="outline" size="sm">
-                        <Link to="/contact">
-                          Request Details
-                        </Link>
-                      </Button>
-                    </div>
-                  </div>
-                </div>
+                <ProductCard key={productIndex} product={product} />
               ))}
             </div>
           </section>
@@ -175,6 +157,54 @@ const Products = () => {
         </section>
       </div>
     </main>
+  );
+};
+
+// Product Card Component for better image loading management
+const ProductCard = ({ product }: { product: { name: string; image: string } }) => {
+  const [imageLoaded, setImageLoaded] = useState(false);
+  const [imageError, setImageError] = useState(false);
+
+  return (
+    <div className="group overflow-hidden rounded-xl shadow-md">
+      <div className="h-80 overflow-hidden bg-gray-100 relative">
+        {!imageLoaded && !imageError && (
+          <div className="absolute inset-0 flex items-center justify-center">
+            <Skeleton className="w-full h-full absolute" />
+            <span className="text-gray-400">Loading...</span>
+          </div>
+        )}
+        
+        {imageError && (
+          <div className="absolute inset-0 flex items-center justify-center bg-gray-100">
+            <span className="text-gray-500">Image unavailable</span>
+          </div>
+        )}
+        
+        <img 
+          src={product.image} 
+          alt={product.name} 
+          className={`w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 ${!imageLoaded ? 'opacity-0' : 'opacity-100'}`}
+          loading="lazy" 
+          onLoad={() => setImageLoaded(true)}
+          onError={() => {
+            setImageError(true);
+            setImageLoaded(true);
+          }}
+        />
+      </div>
+      <div className="p-6">
+        <h4 className="font-bold text-lg mb-2">{product.name}</h4>
+        <p className="text-gray-600">Custom manufactured to your specifications</p>
+        <div className="mt-4">
+          <Button asChild variant="outline" size="sm">
+            <Link to="/contact">
+              Request Details
+            </Link>
+          </Button>
+        </div>
+      </div>
+    </div>
   );
 };
 

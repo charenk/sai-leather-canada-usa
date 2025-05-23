@@ -40,28 +40,30 @@ const Products = () => {
   return (
     <main className="pt-32 pb-16">
       <div className="section-container">
-        <SectionHeading 
-          title="Our Products" 
-          subtitle="We specialize in crafting premium leather products with superior quality and attention to detail."
-          alignment="center"
-        />
+        <div className="animate-on-scroll">
+          <SectionHeading 
+            title="Our Products" 
+            subtitle="We specialize in crafting premium leather products with superior quality and attention to detail."
+            alignment="center"
+          />
+        </div>
 
         {/* Product Categories */}
         {categories.map((category, categoryIndex) => (
-          <section key={categoryIndex} className="mt-16">
-            <h3 className="text-2xl font-bold text-sai-navy mb-2">{category.name}</h3>
+          <section key={categoryIndex} className="mt-16 animate-on-scroll">
+            <h3 className="text-2xl font-bold text-sai-navy mb-2 transition-colors duration-300 hover:text-sai-red">{category.name}</h3>
             <p className="text-gray-600 mb-8">{category.description}</p>
             
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {category.products.map((product, productIndex) => (
-                <ProductCard key={productIndex} product={product} />
+                <ProductCard key={productIndex} product={product} delay={productIndex * 100} />
               ))}
             </div>
           </section>
         ))}
 
         {/* Quality Assurance */}
-        <section className="mt-20 bg-sai-red/10 rounded-xl p-8">
+        <section className="mt-20 bg-sai-red/10 rounded-xl p-8 animate-on-scroll card-hover">
           <h3 className="text-2xl font-bold text-sai-navy mb-6">Our Quality Assurance</h3>
           <p className="text-gray-700 mb-8">
             Every product manufactured by Sai International undergoes rigorous quality control to ensure it meets our exacting standards:
@@ -86,8 +88,8 @@ const Products = () => {
                 description: "Before shipping, each finished product receives a final comprehensive quality assessment."
               },
             ].map((item, index) => (
-              <div key={index} className="bg-white p-6 rounded-lg shadow-sm">
-                <div className="w-12 h-12 bg-sai-navy rounded-full flex items-center justify-center text-white font-bold mb-4">
+              <div key={index} className="bg-white p-6 rounded-lg shadow-sm animate-on-scroll card-hover">
+                <div className="w-12 h-12 bg-sai-navy rounded-full flex items-center justify-center text-white font-bold mb-4 transition-all duration-300 hover:scale-110 hover:bg-sai-red">
                   {index + 1}
                 </div>
                 <h4 className="font-bold text-lg text-sai-navy mb-2">{item.step}</h4>
@@ -98,9 +100,9 @@ const Products = () => {
         </section>
 
         {/* Materials Section */}
-        <section className="mt-16">
+        <section className="mt-16 animate-on-scroll">
           <h3 className="text-2xl font-bold text-sai-navy mb-6">Our Materials</h3>
-          <div className="bg-gray-50 rounded-xl p-8">
+          <div className="bg-gray-50 rounded-xl p-8 card-hover">
             <p className="text-gray-700 mb-6">
               At Sai International, we source only the highest quality leathers from ethical suppliers. Our commitment to excellence begins with the materials we select:
             </p>
@@ -132,8 +134,8 @@ const Products = () => {
                   description: "Modern tanning process resulting in soft, flexible leather with excellent color retention."
                 },
               ].map((material, index) => (
-                <div key={index} className="bg-white p-6 rounded-lg shadow-sm border border-gray-100">
-                  <h4 className="font-bold text-lg text-sai-navy mb-2">{material.name}</h4>
+                <div key={index} className="bg-white p-6 rounded-lg shadow-sm border border-gray-100 animate-on-scroll card-hover">
+                  <h4 className="font-bold text-lg text-sai-navy mb-2 transition-colors duration-300 hover:text-sai-red">{material.name}</h4>
                   <p className="text-gray-600">{material.description}</p>
                 </div>
               ))}
@@ -142,14 +144,14 @@ const Products = () => {
         </section>
 
         {/* CTA Section */}
-        <section className="mt-20 text-center">
+        <section className="mt-20 text-center animate-on-scroll">
           <h3 className="text-2xl font-bold text-sai-navy mb-4">
             Custom OEM Manufacturing
           </h3>
           <p className="text-gray-600 max-w-2xl mx-auto mb-8">
             Looking for custom manufactured leather goods for your brand? We offer comprehensive OEM services tailored to your specific requirements.
           </p>
-          <Button asChild size="lg" className="bg-sai-red hover:bg-sai-red/90">
+          <Button asChild size="lg" className="bg-sai-red hover:bg-sai-red/90 btn-hover pulse-glow">
             <Link to="/contact">
               Get a Custom Quote
             </Link>
@@ -160,18 +162,21 @@ const Products = () => {
   );
 };
 
-// Product Card Component for better image loading management
-const ProductCard = ({ product }: { product: { name: string; image: string } }) => {
+// Enhanced Product Card Component
+const ProductCard = ({ product, delay = 0 }: { product: { name: string; image: string }, delay?: number }) => {
   const [imageLoaded, setImageLoaded] = useState(false);
   const [imageError, setImageError] = useState(false);
 
   return (
-    <div className="group overflow-hidden rounded-xl shadow-md">
+    <div 
+      className="group overflow-hidden rounded-xl shadow-md card-hover animate-on-scroll"
+      style={{ animationDelay: `${delay}ms` }}
+    >
       <div className="h-80 overflow-hidden bg-gray-100 relative">
         {!imageLoaded && !imageError && (
           <div className="absolute inset-0 flex items-center justify-center">
-            <Skeleton className="w-full h-full absolute" />
-            <span className="text-gray-400">Loading...</span>
+            <Skeleton className="w-full h-full absolute skeleton-pulse" />
+            <span className="text-gray-400 z-10">Loading...</span>
           </div>
         )}
         
@@ -184,7 +189,7 @@ const ProductCard = ({ product }: { product: { name: string; image: string } }) 
         <img 
           src={product.image} 
           alt={product.name} 
-          className={`w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 ${!imageLoaded ? 'opacity-0' : 'opacity-100'}`}
+          className={`w-full h-full object-cover transition-all duration-700 group-hover:scale-110 ${!imageLoaded ? 'opacity-0' : 'opacity-100 image-fade-in loaded'}`}
           loading="lazy" 
           onLoad={() => setImageLoaded(true)}
           onError={() => {
@@ -193,11 +198,11 @@ const ProductCard = ({ product }: { product: { name: string; image: string } }) 
           }}
         />
       </div>
-      <div className="p-6">
-        <h4 className="font-bold text-lg mb-2">{product.name}</h4>
-        <p className="text-gray-600">Custom manufactured to your specifications</p>
+      <div className="p-6 transition-all duration-300 group-hover:bg-gray-50">
+        <h4 className="font-bold text-lg mb-2 transition-colors duration-300 group-hover:text-sai-red">{product.name}</h4>
+        <p className="text-gray-600 mb-4">Custom manufactured to your specifications</p>
         <div className="mt-4">
-          <Button asChild variant="outline" size="sm">
+          <Button asChild variant="outline" size="sm" className="btn-hover group/btn">
             <Link to="/contact">
               Request Details
             </Link>

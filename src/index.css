@@ -50,18 +50,130 @@
     @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
   }
 
+  /* Enhanced scroll animations */
   .animate-on-scroll {
     opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    transform: translateY(30px);
+    transition: opacity 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94), 
+                transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   }
 
   .animate-on-scroll.visible {
     opacity: 1;
     transform: translateY(0);
   }
+
+  /* Staggered animation delays for multiple items */
+  .animate-on-scroll:nth-child(1) { transition-delay: 0ms; }
+  .animate-on-scroll:nth-child(2) { transition-delay: 100ms; }
+  .animate-on-scroll:nth-child(3) { transition-delay: 200ms; }
+  .animate-on-scroll:nth-child(4) { transition-delay: 300ms; }
+  .animate-on-scroll:nth-child(5) { transition-delay: 400ms; }
+  .animate-on-scroll:nth-child(6) { transition-delay: 500ms; }
+
+  /* Smooth page transitions */
+  html {
+    scroll-behavior: smooth;
+  }
+
+  /* Enhanced button animations */
+  .btn-hover {
+    @apply transition-all duration-300 ease-out;
+  }
+
+  .btn-hover:hover {
+    @apply transform -translate-y-0.5 shadow-lg;
+  }
+
+  /* Card hover effects */
+  .card-hover {
+    @apply transition-all duration-300 ease-out;
+  }
+
+  .card-hover:hover {
+    @apply transform -translate-y-1 shadow-xl;
+  }
+
+  /* Navbar smooth backdrop */
+  .navbar-backdrop {
+    @apply backdrop-blur-sm bg-white/95 transition-all duration-300;
+  }
+
+  /* Image fade-in animation */
+  .image-fade-in {
+    opacity: 0;
+    transform: scale(1.05);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+  }
+
+  .image-fade-in.loaded {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  /* Timeline animation */
+  .timeline-item {
+    opacity: 0;
+    transform: translateX(-50px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+  }
+
+  .timeline-item.visible {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  /* Floating animation for hero elements */
+  .float-animation {
+    animation: float 6s ease-in-out infinite;
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+  }
+
+  /* Pulse effect for call-to-action elements */
+  .pulse-glow {
+    animation: pulse-glow 2s ease-in-out infinite;
+  }
+
+  @keyframes pulse-glow {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(228, 80, 69, 0.4); }
+    50% { box-shadow: 0 0 0 10px rgba(228, 80, 69, 0); }
+  }
 }
 
 .stat-card {
-  @apply rounded-2xl p-6 flex flex-col justify-between h-full text-left;
+  @apply rounded-2xl p-6 flex flex-col justify-between h-full text-left transition-all duration-300 hover:scale-105 hover:shadow-lg;
+}
+
+/* Enhanced underline animation */
+.underline-animation {
+  position: relative;
+}
+
+.underline-animation::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: -4px;
+  left: 0;
+  background-color: #E45045;
+  transition: width 0.3s ease-out;
+}
+
+.underline-animation:hover::after {
+  width: 100%;
+}
+
+/* Loading skeleton animation */
+.skeleton-pulse {
+  animation: skeleton-pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes skeleton-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
 }
